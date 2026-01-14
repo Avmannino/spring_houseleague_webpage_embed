@@ -347,7 +347,7 @@ export default function App() {
       {/* Pricing Section - shows here on desktop, hidden on mobile */}
       <section
         id="pricing-desktop"
-        className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12 lg:-mt-[50px]"
+        className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-20 lg:-mt-[50px]"
       >
         <h2 className="text-[2rem] sm:text-[2.15625rem] mb-1 text-white text-center"></h2>
 
@@ -385,7 +385,7 @@ export default function App() {
           </h2>
           <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 w-[90%] sm:w-full max-w-4xl mx-auto gap-8 sm:gap-12 lg:gap-[72px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 w-[90%] sm:w-full max-w-4xl mx-auto my-15 gap-8 sm:gap-12 lg:gap-[72px]">
             {/* ✅ card shadow */}
             <div className={`bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center ${SHADOW}`}>
               <h3 className="text-white text-[1.378125rem] sm:text-[1.65375rem] mb-4 -mt-[5px]">
