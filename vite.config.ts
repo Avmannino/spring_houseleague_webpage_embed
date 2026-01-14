@@ -1,22 +1,16 @@
 import { defineConfig } from "vite";
-import path from "path";
+import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  // ✅ IMPORTANT for GitHub Pages project sites:
-  // https://<username>.github.io/<repo>/
-  base: "/",
+  // GitHub Pages project site:
+  // https://avmannino.github.io/public_skate_webpage_embed/
+  base: "/public_skate_webpage_embed/",
 
-  plugins: [
-    // The React and Tailwind plugins are both required for Make, even if
-    // Tailwind is not being actively used – do not remove them
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      // Alias @ to the src directory
       "@": path.resolve(__dirname, "./src"),
     },
   },
