@@ -12,7 +12,7 @@ import galleryImage1 from "../assets/gallery/gallery-1.jpg";
 import galleryImage2 from "../assets/gallery/gallery-2.jpg";
 import galleryImage3 from "../assets/gallery/gallery-3.jpg";
 import galleryImage4 from "../assets/gallery/gallery-4.jpg";
-import catchCornerLogo from "../assets/logos/catchcorner.avif";
+import catchCornerLogo from "../assets/logos/catchcorner.png";
 import { HeroCarousel } from "@/app/components/HeroCarousel";
 import { ImageCarousel } from "@/app/components/ImageCarousel";
 import { InfoBox } from "@/app/components/InfoBox";
@@ -130,6 +130,9 @@ export default function App() {
     smoothScrollToEl(el, targetId);
   };
 
+  // ✅ One shadow token you can reuse everywhere (cards/images/buttons/schedule wrappers)
+  const SHADOW = "shadow-[0_8px_20px_rgba(0,0,0,0.45)]";
+
   return (
     <div className="min-h-screen bg-[#0f1340] flex flex-col sm:block">
       {/* Header */}
@@ -141,19 +144,16 @@ export default function App() {
 
       {/* Hero Section */}
       <section className="bg-[#0f1340] border-b border-[#b2dbd7]/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* ✅ Fix overflow ONLY for 1001px–1325px:
-                - remove the negative left margin in that range
-                - add a little right padding to the text column so it breathes
-            */}
-            <div className="lg:-ml-[30px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:pr-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 xl:px-0 py-12">
+          <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-8 lg:gap-x-[162px] items-center">
+            <div className="lg:-ml-[60px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:pr-5">
               {/* Center logo + header for all breakpoints <= ~1000px */}
-              <div className="flex flex-col items-center lg:items-start mb-6">
+              <div className="flex flex-col items-center lg:items-center mb-6">
+                {/* ✅ image shadow */}
                 <img
                   src={logo}
                   alt="Wings Arena"
-                  className="w-[100.04px] mt-[-50px] -mb-[15px] ml-3 mr-3 lg:ml-[0px] min-[1001px]:max-[1325px]:ml-[28px]"
+                  className={`w-[100.04px] mt-[-50px] -mb-[15px] ml-3 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]`}
                 />
                 <h1 className="text-4xl lg:text-5xl text-white text-center lg:text-left min-[1001px]:max-[1325px]:pl-[28px]">
                   Public Skate
@@ -162,7 +162,7 @@ export default function App() {
               </div>
 
               {/* ✅ Nudge the paragraph + buttons to the right ONLY for 1001–1325 */}
-              <div className="text-gray-300 mb-6 ml-1 space-y-4 min-[1001px]:max-[1325px]:ml-[28px]">
+              <div className="text-gray-300 mb-4 ml-1 space-y-5 lg:text-center min-[1001px]:max-[1325px]:ml-[28px] text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
                 <p>
                   Lace up and hit the ice at our Public Skate—the perfect chance
                   to get out on the ice. Whether you're practicing your skills,
@@ -177,26 +177,39 @@ export default function App() {
               </div>
 
               {/* Center buttons for all breakpoints <= ~1000px */}
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start min-[1001px]:max-[1325px]:ml-[28px]">
+              {/*
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-center min-[1001px]:max-[1325px]:ml-[28px]">
                 <a
                   href="#schedule"
                   onClick={scrollToId("schedule")}
-                  className="bg-[#b2dbd7] text-gray-900 px-6 py-3 rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block"
+                  className={`bg-[#b2dbd7] text-gray-900 px-6 py-3 rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block ${SHADOW}`}
                 >
                   View Schedule
                 </a>
                 <a
                   href="#pricing"
                   onClick={scrollToPricing}
-                  className="bg-transparent text-white px-6 py-3 rounded-md border border-gray-500 hover:bg-gray-800 hover:scale-105 transition-all inline-block"
+                  className={`bg-transparent text-white px-6 py-3 rounded-md border border-red-700 hover:bg-gray-800 hover:scale-105 transition-all inline-block ${SHADOW}`}
                 >
-                  Pricing Info
+                  Birthdays
                 </a>
               </div>
+              */}
             </div>
 
-            {/* ✅ Make HeroCarousel a bit smaller ONLY for 1001px–1325px */}
-            <div className="relative h-64 sm:h-80 lg:h-96 ml-[5px] min-[1001px]:max-[1325px]:h-[320px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:scale-[0.93] min-[1001px]:max-[1325px]:origin-top-left">
+            {/* ✅ HeroCarousel wrapper shadow (image area) */}
+            <div
+              className={`
+                relative h-64 sm:h-80 lg:h-96
+                ml-[0px] lg:ml-0
+                min-[1001px]:max-[1325px]:h-[320px]
+                min-[1001px]:max-[1325px]:ml-0
+                min-[1001px]:max-[1325px]:scale-[0.93]
+                min-[1001px]:max-[1325px]:origin-top-left
+                ${SHADOW}
+                rounded-lg overflow-hidden
+              `}
+            >
               <HeroCarousel images={heroImages} interval={3000} />
             </div>
           </div>
@@ -206,11 +219,12 @@ export default function App() {
       {/* Reorder Schedule before Info Boxes ONLY at widths <= 1000px */}
       <div className="max-[1000px]:flex max-[1000px]:flex-col">
         {/* Info Boxes */}
-        <section className="max-w-[calc(80rem*0.97+200px)] mx-auto px-0 sm:px-6 xl:px-8 py-8 max-[1000px]:order-2 max-[1000px]:pt-0 max-[1000px]:-mt-[18px]">
+        <section className="max-w-[calc(80rem*0.97+200px)] mx-auto px-0 sm:px-6 xl:px-8 py-8 max-[1000px]:order-2 max-[1000px]:pt-0 max-[1000px]:-mt-[18px] lg:mt-[25px]">
           {/* Full-bleed ONLY on mobile to maximize width for the 2-column grid */}
           <div className="max-[640px]:w-[100vw] max-[640px]:ml-[calc(50%-50vw)] max-[640px]:px-3 max-[640px]:box-border">
+            {/* ✅ wrapper applies shadow to each InfoBox card without needing to edit InfoBox component */}
             <div className="grid w-full grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch">
-              <div className="w-full [&>*]:!w-full">
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={familyIcon}
                   title="Great for Families"
@@ -222,7 +236,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="w-full [&>*]:!w-full">
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={allAgesIcon}
                   title="All Ages Welcome"
@@ -235,7 +249,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="w-full [&>*]:!w-full">
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   icon={Snowflake}
                   title="Quality Ice"
@@ -247,7 +261,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="w-full [&>*]:!w-full">
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   icon={Cross}
                   title="Safety First"
@@ -263,7 +277,10 @@ export default function App() {
         </section>
 
         {/* Schedule Section */}
-        <section id="schedule" className="bg-[#0f1340] py-12 max-[1000px]:order-1">
+        <section
+          id="schedule"
+          className="bg-[#0f1340] py-12 max-[1000px]:order-1"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
             <div className="flex flex-col gap-6 sm:gap-8 min-[1001px]:items-center">
               <div
@@ -277,12 +294,15 @@ export default function App() {
                   "min-[1001px]:-mt-[30px]",
                 ].join(" ")}
               >
-                <h2 className="text-[1.50125rem] sm:text-4xl mb-7 mt-7 min-[1001px]:mb-10 text-white text-center">
+                <h2 className="text-[1.50125rem] sm:text-4xl mb-7 mt-7 min-[1001px]:mb-11 text-white text-center">
                   Upcoming Public Skates
                 </h2>
                 <div className="mb-[20px] -mt-[12px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
-                <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-6 w-full min-w-0 overflow-visible">
+                {/* ✅ schedule wrapper shadow */}
+                <div
+                  className={`bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-6 w-full min-w-0 overflow-visible ${SHADOW}`}
+                >
                   <ScheduleTable key={scheduleKey} />
                 </div>
               </div>
@@ -305,12 +325,13 @@ export default function App() {
                     ["--pc-feat" as any]: "clamp(12px, 1.7vw, 14px)",
                   }}
                 >
+                  {/* ✅ wrapper applies shadow to PriceCard components */}
                   <div className="grid grid-flow-col items-stretch justify-center gap-x-[var(--pc-gap)] auto-cols-[clamp(132px,56vw,200px)] max-[450px]:auto-cols-[clamp(108px,46vw,150px)] min-[601px]:max-[1000px]:auto-cols-[clamp(220px,35vw,340px)]">
-                    <div className="h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0">
+                    <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
                       <PriceCard title="Admission" price="$14" description="Per person" />
                     </div>
 
-                    <div className="h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0">
+                    <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
                       <PriceCard title="Skate Rental" price="$6" description="Per person" />
                     </div>
                   </div>
@@ -328,88 +349,118 @@ export default function App() {
         id="pricing-desktop"
         className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12 lg:-mt-[50px]"
       >
-        <h2 className="text-[2rem] sm:text-[2.15625rem] mb-8 text-white text-center"></h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 max-w-[856px] mx-auto gap-8 sm:gap-12 lg:gap-[72px]">
-          <PriceCard
-            title="Admission"
-            price="$14"
-            description="Per person"
-            features={["Walk-ins welcome", "Session length varies by date"]}
-          />
-          <PriceCard
-            title="Skate Rental"
-            price="$6"
-            description="Per person"
-            features={[
-              "Hockey & Figure Skates",
-              "Youth & Adult Sizes",
-              "Exchange sizes anytime",
-            ]}
-          />
+        <h2 className="text-[2rem] sm:text-[2.15625rem] mb-1 text-white text-center"></h2>
+
+        {/* ✅ wrapper applies shadow to PriceCard components */}
+        <div className={'grid grid-cols-1 sm:grid-cols-2 max-w-[856px] mx-auto gap-8 sm:gap-12 lg:gap-[72px]'}>
+          <div className={`[&>*]:${SHADOW}`}>
+            <PriceCard
+              title="Admission"
+              price="$14"
+              description="Per person"
+              features={["Walk-ins welcome", "Session length varies by date"]}
+            />
+          </div>
+
+          <div className={`[&>*]:${SHADOW}`}>
+            <PriceCard
+              title="Skate Rental"
+              price="$6"
+              description="Per person"
+              features={[
+                "Hockey & Figure Skates",
+                "Youth & Adult Sizes",
+                "Exchange sizes anytime",
+              ]}
+            />
+          </div>
         </div>
       </section>
 
       {/* Parties & Ice Bookings Section */}
       <section className="bg-[#0f1340] py-12 pb-4 sm:pb-12 -mt-[30px] sm:mt-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
-          <h2 className="text-[1.9625rem] sm:text-[2.0625rem] mb-6 sm:mb-8 text-white text-center">
+          <h2 className="text-[1.5625rem] sm:text-[2.2625rem] mb-0 sm:mb-5 text-white text-center">
             Parties & Ice Bookings
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 w-[70%] sm:w-full max-w-4xl mx-auto gap-8 sm:gap-12 lg:gap-[72px]">
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center">
+          <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 w-[90%] sm:w-full max-w-4xl mx-auto gap-8 sm:gap-12 lg:gap-[72px]">
+            {/* ✅ card shadow */}
+            <div className={`bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center ${SHADOW}`}>
               <h3 className="text-white text-[1.378125rem] sm:text-[1.65375rem] mb-4 -mt-[5px]">
                 Birthday Parties
               </h3>
+
+              {/* ✅ button shadow */}
               <a
                 href="https://www.wingsarena.com/events"
-                className="bg-[#b2dbd7] text-gray-900 px-[1.65375rem] py-[0.826875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mb-4 font-bold"
+                className={`bg-[#2c3f5d] text-gray-200 px-[3.85375rem] py-[1.126875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mb-4 font-bold ${SHADOW}`}
               >
                 Learn More
               </a>
-              <p className="text-gray-300 text-[0.9646875rem]">
+
+              <p className="text-gray-300 text-[0.9646875rem] mt-1 font-bold">
                 For birthday party inquiries email: jwanderlingh@wingsarena.com
               </p>
             </div>
 
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center">
+            {/* ✅ card shadow */}
+            <div className={`bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center ${SHADOW}`}>
               <h3 className="text-white text-[1.378125rem] sm:text-[1.65375rem] mb-4 -mt-[5px]">
                 Private Ice Bookings
               </h3>
+
+              {/* ✅ button shadow */}
               <a
                 href="https://www.catchcorner.com/facility-page/embedded/rental/wings-arena"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#b2dbd7] text-gray-900 px-[1.65375rem] py-[0.826875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mt-[8px]"
+                className={`bg-[#b2dbd7] text-gray-900 px-[1.65375rem] py-[0.826875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mt-[2px] ${SHADOW}`}
               >
+                {/* ✅ image shadow */}
                 <img
                   src={catchCornerLogo}
                   alt="Book with CatchCorner"
-                  className="h-[3.3075rem] sm:h-[4.41rem] rounded-md"
+                  className={`h-[2.0075rem] sm:h-[2.81rem] rounded-md`}
                 />
               </a>
+              <p className="text-gray-100 text-[0.9646875rem] mt-4">
+                Ice time, on your watch. Book your next skate now!
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Gallery Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12 -mt-[40px] sm:mt-0 order-2 sm:order-none">
-        <h2 className="text-2xl sm:text-3xl mb-6 sm:mb-8 text-white text-center">
+      {/* ✅ Guaranteed move up 20px: use translate instead of relying on margins */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-12 -mt-[60px] sm:mt-0 order-2 sm:order-none -translate-y-[20px]">
+        <h2 className="text-2xl sm:text-4xl mb-6 sm:mb-6 text-white text-center">
           Gallery
         </h2>
-        <ImageCarousel images={galleryImages} interval={3000} />
+        <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+
+        {/* ✅ gallery image area shadow */}
+        <div className={`rounded-lg overflow-hidden`}>
+          <ImageCarousel images={galleryImages} interval={3000} />
+        </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-[#0f1340] py-12 sm:py-12 pt-0 sm:pt-12 order-1 sm:order-none mt-[35px] sm:mt-0">
+      {/* ✅ Guaranteed move up 50px: use translate instead of relying on margins */}
+      <section className="bg-[#0f1340] py-12 sm:py-12 pt-0 sm:pt-12 order-1 sm:order-none mt-[35px] sm:mt-0 -translate-y-[15px]">
         <div className="max-w-[58.08rem] mx-auto px-4 sm:px-6 xl:px-8">
-          <h2 className="text-2xl sm:text-3xl mb-6 sm:mb-8 text-white text-center">
+          <h2 className="text-2xl sm:text-3xl mb-4 sm:mb-6 text-white text-center">
             Frequently Asked Questions
           </h2>
+          <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+
+          {/* ✅ accordion (card) shadow */}
           <Accordion
             type="single"
             collapsible
-            className="bg-[#b2dbd7] rounded-lg border border-gray-700 px-4 sm:px-6"
+            className={`bg-[#b2dbd7] rounded-lg border border-gray-700 px-4 sm:px-6 ${SHADOW}`}
           >
             <AccordionItem value="item-1">
               <AccordionTrigger>Do I need to bring my own skates?</AccordionTrigger>
