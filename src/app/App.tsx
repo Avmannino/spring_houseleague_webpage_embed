@@ -1,23 +1,14 @@
 import type React from "react";
-import { useEffect, useMemo, useState } from "react";
 
 import logo from "../assets/wingslogo.png";
 import familyIcon from "../assets/familyicon.png";
-import allAgesIcon from "../assets/agesicon.png";
 import heroImage1 from "../assets/hero/hero-1.jpg";
 import heroImage2 from "../assets/hero/hero-2.jpg";
 import heroImage3 from "../assets/hero/hero-3.jpg";
 import heroImage4 from "../assets/hero/hero-4.jpg";
-import galleryImage1 from "../assets/gallery/gallery-1.jpg";
-import galleryImage2 from "../assets/gallery/gallery-2.jpg";
-import galleryImage3 from "../assets/gallery/gallery-3.jpg";
-import galleryImage4 from "../assets/gallery/gallery-4.jpg";
-import catchCornerLogo from "../assets/logos/catchcorner.png";
 import { HeroCarousel } from "@/app/components/HeroCarousel";
-import { ImageCarousel } from "@/app/components/ImageCarousel";
 import { InfoBox } from "@/app/components/InfoBox";
 import { PriceCard } from "@/app/components/PriceCard";
-import { ScheduleTable } from "@/app/components/ScheduleTable";
 import {
   Accordion,
   AccordionContent,
@@ -25,6 +16,12 @@ import {
   AccordionTrigger,
 } from "@/app/components/ui/accordion";
 import { Snowflake, Cross } from "lucide-react";
+import coedIcon from "../assets/icons/coed.png";
+import allAgesIcon from "../assets/icons/icons8-birth-date-100.png";
+import practiceIcon from "../assets/icons/icons8-practice-64.png";
+import hockeyFieldIcon from "../assets/icons/icons8-hockey-field-100.png";
+import coachingIcon from "../assets/icons/icons8-coaching-100.png";
+import qrCode from "../assets/Registration_QR.png";
 
 export default function App() {
   const heroImages = [
@@ -34,170 +31,64 @@ export default function App() {
     { url: heroImage4, alt: "Ice skates rental" },
   ];
 
-  const galleryImages = [
-    { url: heroImage3, alt: "Wings Arena seating area" },
-    { url: heroImage1, alt: "Wings Arena ice rink facility" },
-    { url: heroImage2, alt: "Wings Arena ice rink view" },
-    { url: heroImage4, alt: "Ice skates rental" },
-    { url: galleryImage1, alt: "Family ice skating" },
-    { url: galleryImage2, alt: "Children skating rink" },
-    { url: galleryImage3, alt: "Ice hockey arena" },
-    { url: galleryImage4, alt: "Skating lessons" },
-  ];
-
-  // Track breakpoints in JS so we can (a) scroll correctly and (b) remount schedule when layout changes.
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(min-width: 1024px)").matches
-      : false
-  );
-
-  const [isUnder1000, setIsUnder1000] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(max-width: 1000px)").matches
-      : false
-  );
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mqDesktop = window.matchMedia("(min-width: 1024px)");
-    const mq1000 = window.matchMedia("(max-width: 1000px)");
-
-    const onDesktopChange = () => setIsDesktop(mqDesktop.matches);
-    const on1000Change = () => setIsUnder1000(mq1000.matches);
-
-    // Safari fallback support
-    if (mqDesktop.addEventListener)
-      mqDesktop.addEventListener("change", onDesktopChange);
-    else mqDesktop.addListener(onDesktopChange);
-
-    if (mq1000.addEventListener)
-      mq1000.addEventListener("change", on1000Change);
-    else mq1000.addListener(on1000Change);
-
-    // Initialize
-    onDesktopChange();
-    on1000Change();
-
-    return () => {
-      if (mqDesktop.removeEventListener)
-        mqDesktop.removeEventListener("change", onDesktopChange);
-      else mqDesktop.removeListener(onDesktopChange);
-
-      if (mq1000.removeEventListener)
-        mq1000.removeEventListener("change", on1000Change);
-      else mq1000.removeListener(on1000Change);
-    };
-  }, []);
-
-  // Remount ScheduleTable when the <=1000 layout mode changes
-  const scheduleKey = useMemo(
-    () => (isUnder1000 ? "schedule-under-1000" : "schedule-over-1000"),
-    [isUnder1000]
-  );
-
-  const smoothScrollToEl = (el: HTMLElement, id?: string) => {
-    if (id) {
-      try {
-        window.history.replaceState(null, "", `#${id}`);
-      } catch {
-        // ignore
-      }
-    }
-
-    const offset = 12;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-
-    window.requestAnimationFrame(() => {
-      window.scrollTo({ top, behavior: "smooth" });
-    });
-  };
-
-  const scrollToId =
-    (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      const el = document.getElementById(id);
-      if (!el) return;
-      smoothScrollToEl(el, id);
-    };
-
-  const scrollToPricing = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const targetId = isDesktop ? "pricing-desktop" : "pricing-mobile";
-    const el = document.getElementById(targetId);
-    if (!el) return;
-    smoothScrollToEl(el, targetId);
-  };
-
   // ✅ One shadow token you can reuse everywhere (cards/images/buttons/schedule wrappers)
   const SHADOW = "shadow-[0_8px_20px_rgba(0,0,0,0.45)]";
 
+  // ✅ NEW COLORS
+  const PAGE_BG = "bg-[#1f419b]";
+  const CARD_OVERLAY = "bg-[#e51837]/85"; // background only (text stays 100%)
+
   return (
-    <div className="min-h-screen bg-[#0f1340] flex flex-col sm:block">
+    <div className={`min-h-screen ${PAGE_BG} flex flex-col sm:block`}>
       {/* Header */}
-      <header className="bg-[#0f1340] border-b border-[#b2dbd7]/70">
+      <header className={`${PAGE_BG} border-b border-[#b2dbd7]/70`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-4">
           <nav className="flex items-center justify-between"></nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-[#0f1340] border-b border-[#b2dbd7]/70">
+      <section className={`${PAGE_BG} border-b border-[#b2dbd7]/70`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-5 xl:px-0 py-12">
           <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-8 lg:gap-x-[162px] items-center">
             <div className="lg:-ml-[60px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:pr-5">
-              {/* Center logo + header for all breakpoints <= ~1000px */}
+              {/* Logo + header */}
               <div className="flex flex-col items-center lg:items-center mb-6">
-                {/* ✅ image shadow */}
                 <img
                   src={logo}
                   alt="Wings Arena"
-                  className={`w-[100.04px] mt-[-50px] -mb-[15px] ml-3 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]`}
+                  className="w-[75.04px] mt-[-40px] -mb-[0px] ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
                 />
-                <h1 className="text-4xl lg:text-5xl text-white text-center lg:text-left min-[1001px]:max-[1325px]:pl-[28px]">
-                  Public Skate
+                <h1 className="text-4xl lg:text-4xl text-white text-center lg:text-center min-[1001px]:max-[1325px]:pl-[28px]">
+                  2026 In-House Spring League
                 </h1>
+
+                <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center min-[1001px]:max-[1325px]:pl-[28px]">
+                  Starting Friday, March 13th
+                </p>
+
                 <div className="mt-[15px] -mb-[10px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
               </div>
 
-              {/* ✅ Nudge the paragraph + buttons to the right ONLY for 1001–1325 */}
-              <div className="text-gray-300 mb-4 ml-1 space-y-5 lg:text-center min-[1001px]:max-[1325px]:ml-[28px] text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
-                <p>
-                  Lace up and hit the ice at our Public Skate—the perfect chance
-                  to get out on the ice. Whether you're practicing your skills,
-                  staying active, or just skating for fun, we welcome all ages
-                  and skill levels!
+              <div className="text-gray-200 mb-4 ml-1 space-y-5 lg:text-center min-[1001px]:max-[1325px]:ml-[28px] text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
+                <p className="font-semibold text-gray-200">
+                  A recreational league for travel team players.
                 </p>
-                <p>
-                  No skates? No problem—we've got a wide range of rental sizes
-                  from youth to adult, with both hockey and figure skates
-                  available.
-                </p>
-              </div>
 
-              {/* Center buttons for all breakpoints <= ~1000px */}
-              {/*
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-center min-[1001px]:max-[1325px]:ml-[28px]">
-                <a
-                  href="#schedule"
-                  onClick={scrollToId("schedule")}
-                  className={`bg-[#b2dbd7] text-gray-900 px-6 py-3 rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block ${SHADOW}`}
-                >
-                  View Schedule
-                </a>
-                <a
-                  href="#pricing"
-                  onClick={scrollToPricing}
-                  className={`bg-transparent text-white px-6 py-3 rounded-md border border-red-700 hover:bg-gray-800 hover:scale-105 transition-all inline-block ${SHADOW}`}
-                >
-                  Birthdays
-                </a>
+                <p>
+                  In-house teams with a focus on <strong>development</strong> and{" "}
+                  <strong>game play</strong>. Non-checking league.
+                </p>
+
+                {/* ✅ ADDED per request */}
+                <p className="text-gray-300 font-semibold">
+                  Practice &amp; skills development designed to provide a
+                  structured, competitive hockey experience
+                </p>
               </div>
-              */}
             </div>
 
-            {/* ✅ HeroCarousel wrapper shadow (image area) */}
+            {/* HeroCarousel */}
             <div
               className={`
                 relative h-64 sm:h-80 lg:h-96
@@ -216,309 +107,314 @@ export default function App() {
         </div>
       </section>
 
-      {/* Reorder Schedule before Info Boxes ONLY at widths <= 1000px */}
-      <div className="max-[1000px]:flex max-[1000px]:flex-col">
-        {/* Info Boxes */}
-        <section className="max-w-[calc(80rem*0.97+200px)] mx-auto px-0 sm:px-6 xl:px-8 py-8 max-[1000px]:order-2 max-[1000px]:pt-0 max-[1000px]:-mt-[18px] lg:mt-[25px]">
-          {/* Full-bleed ONLY on mobile to maximize width for the 2-column grid */}
-          <div className="max-[640px]:w-[100vw] max-[640px]:ml-[calc(50%-50vw)] max-[640px]:px-3 max-[640px]:box-border">
-            {/* ✅ wrapper applies shadow to each InfoBox card without needing to edit InfoBox component */}
-            <div className="grid w-full grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch">
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
-                <InfoBox
-                  iconImage={familyIcon}
-                  title="Great for Families"
-                  description="A fun outing for kids, teens, and parents"
-                  iconSize="w-[28.6px] h-[28.6px]"
-                  iconOffset="-mt-[5px]"
-                  titleClassName="text-[16px] sm:text-[16px]"
-                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
-                />
-              </div>
+      {/* Info Boxes */}
+      <section
+        className="
+          max-w-[calc(80rem*0.97+200px)]
+          mx-auto
+          px-0
+          sm:px-6
+          xl:px-8
+          py-8
+          max-[1000px]:pt-0
+          max-[1000px]:mt-[18px]
+          lg:mt-[25px]
+        "
+      >
+        <div className="max-[640px]:w-[100vw] max-[640px]:ml-[calc(50%-50vw)] max-[640px]:px-3 max-[640px]:box-border">
+          {/* Row 1: Ages card centered */}
+          <div className="flex justify-center mb-[calc(1rem*1.0356)]">
+            <div className={`w-full max-w-[760px] [&>*]:!w-full [&>*]:${SHADOW}`}>
+              <InfoBox
+                iconImage={allAgesIcon}
+                title="Ages (Birth Years)"
+                description={
+                  <>
+                    <strong>Mites</strong> (2020–2017) • <strong>Squirts</strong>{" "}
+                    (2016–2015) • <strong>Peewee</strong> (2014–2013) •{" "}
+                    <strong>Bantam</strong> (2012–2011) • <strong>U16-18</strong>{" "}
+                    (2010–2007)
+                  </>
+                }
+                iconSize="w-[35.35px] h-[35.35px]"
+                iconOffset="-mt-[10px]"
+                textOffset="-mt-[1.5px]"
+                titleClassName="text-[15px] sm:text-[16px]"
+                descriptionClassName="text-[11px] sm:text-[13px] leading-snug"
+              />
+            </div>
+          </div>
 
+          {/* Row 2: 4 cards centered */}
+          <div className="flex justify-center">
+            <div className="grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch">
               <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
-                  iconImage={allAgesIcon}
-                  title="All Ages Welcome"
-                  description="Family-friendly environment for all"
-                  iconSize="w-[35.35px] h-[35.35px]"
-                  iconOffset="-mt-[10px]"
-                  textOffset="-mt-[1.5px]"
-                  titleClassName="text-[15px] sm:text-[16px]"
-                  descriptionClassName="text-[11px] sm:text-[13px] leading-snug"
-                />
-              </div>
-
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
-                <InfoBox
-                  icon={Snowflake}
-                  title="Quality Ice"
-                  description="Professionally maintained ice surface"
-                  titleClassName="text-[16px] sm:text-[16px]"
-                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
-                  iconOffset="-mt-[0px]"
-                  textOffset="-mt-[3.5px]"
-                />
-              </div>
-
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
-                <InfoBox
-                  icon={Cross}
-                  title="Safety First"
-                  description="Trained staff and safety equipment available"
-                  titleClassName="text-[16px] sm:text-[16px]"
-                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
+                  iconImage={practiceIcon}
+                  title="Friday Practices"
+                  description="Practices on Fridays (limited practice spots)"
+                  iconSize="w-[40px] h-[40px]"
                   iconOffset="-mt-[6px]"
                   textOffset="-mt-[3.5px]"
+                  titleClassName="text-[16px] sm:text-[16px]"
+                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
+                />
+              </div>
+
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+                <InfoBox
+                  iconImage={hockeyFieldIcon}
+                  title="Sunday Games"
+                  description="Games on Sundays (weekly, by age group)"
+                  iconSize="w-[39px] h-[39px]"
+                  iconOffset="-mt-[6px]"
+                  textOffset="-mt-[3.5px]"
+                  titleClassName="text-[16px] sm:text-[16px]"
+                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
+                />
+              </div>
+
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+                <InfoBox
+                  iconImage={coachingIcon}
+                  title="Coaching"
+                  description="Coached by Wings Arena professional coaches"
+                  iconSize="w-[39px] h-[39px]"
+                  iconOffset="-mt-[6px]"
+                  textOffset="-mt-[3.5px]"
+                  titleClassName="text-[16px] sm:text-[16px]"
+                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight"
+                />
+              </div>
+
+              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+                <InfoBox
+                  iconImage={coedIcon}
+                  title="Co-Ed League"
+                  description="Open to both boys and girls"
+                  iconSize="w-[36px] h-[36px]"
+                  iconOffset="-mt-[6px]"
+                  textOffset="-mt-[3.5px]"
+                  titleClassName="text-[16px] sm:text-[16px]"
+                  descriptionClassName="text-[11px] sm:text-[13px] leading-tight min-h-[2.6em]"
                 />
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Schedule Section */}
-        <section
-          id="schedule"
-          className="bg-[#0f1340] py-12 max-[1000px]:order-1"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
-            <div className="flex flex-col gap-6 sm:gap-8 min-[1001px]:items-center">
-              <div
-                className={[
-                  "order-1 w-full",
-                  // <=1000: keep your existing offsets/flow
-                  "max-[1000px]:-mt-[47px] max-[1000px]:mx-0",
-                  // >=1001: center + grow width, and move everything up ~30px
-                  "min-[1001px]:mx-auto",
-                  "min-[1001px]:w-[clamp(760px,72vw,1240px)]",
-                  "min-[1001px]:-mt-[30px]",
-                ].join(" ")}
-              >
-                <h2 className="text-[1.50125rem] sm:text-4xl mb-7 mt-7 min-[1001px]:mb-11 text-white text-center">
-                  Upcoming Public Skates
-                </h2>
-                <div className="mb-[20px] -mt-[12px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
-
-                {/* ✅ schedule wrapper shadow */}
-                <div
-                  className={`bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-6 w-full min-w-0 overflow-visible ${SHADOW}`}
-                >
-                  <ScheduleTable key={scheduleKey} />
-                </div>
-              </div>
-
-              {/* Pricing Section - shows here on mobile, later on desktop */}
-              <div className="order-2 lg:hidden mt-0">
-                <h2
-                  id="pricing-mobile"
-                  className="text-[1.7rem] sm:text-[2.15625rem] mb-2 sm:mb-8 text-white text-center mt-[0px] sm:mt-0"
-                ></h2>
-
-                <div
-                  className="flex justify-center w-full"
-                  style={{
-                    ["--pc-w" as any]: "clamp(140px, 56vw, 163px)",
-                    ["--pc-gap" as any]: "clamp(6px, 3vw, 28px)",
-                    ["--pc-title" as any]: "clamp(14px, 2.2vw, 20px)",
-                    ["--pc-price" as any]: "clamp(24px, 4.6vw, 42px)",
-                    ["--pc-desc" as any]: "clamp(12px, 1.8vw, 14px)",
-                    ["--pc-feat" as any]: "clamp(12px, 1.7vw, 14px)",
-                  }}
-                >
-                  {/* ✅ wrapper applies shadow to PriceCard components */}
-                  <div className="grid grid-flow-col items-stretch justify-center gap-x-[var(--pc-gap)] auto-cols-[clamp(132px,56vw,200px)] max-[450px]:auto-cols-[clamp(108px,46vw,150px)] min-[601px]:max-[1000px]:auto-cols-[clamp(220px,35vw,340px)]">
-                    <div
-                      className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
-                    >
-                      <PriceCard
-                        title="Admission"
-                        price="$14"
-                        description="Per person"
-                      />
-                    </div>
-
-                    <div
-                      className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
-                    >
-                      <PriceCard
-                        title="Skate Rental"
-                        price="$6"
-                        description="Per person"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* (cards section commented out in your original) */}
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Pricing Section - shows here on desktop, hidden on mobile */}
-      <section
-        id="pricing-desktop"
-        className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-20 lg:-mt-[75px]"
-      >
-        <h2 className="text-[2rem] sm:text-[2.15625rem] mb-1 text-white text-center"></h2>
-
-        {/* ✅ wrapper applies shadow to PriceCard components */}
-        <div
-          className={
-            "grid grid-cols-1 sm:grid-cols-2 max-w-[856px] mx-auto gap-8 sm:gap-12 lg:gap-[72px]"
-          }
-        >
-          <div className={`[&>*]:${SHADOW}`}>
-            <PriceCard
-              title="Admission"
-              price="$14"
-              description="Per person"
-              features={["Walk-ins welcome", "Session length varies by date"]}
-            />
-          </div>
-
-          <div className={`[&>*]:${SHADOW}`}>
-            <PriceCard
-              title="Skate Rental"
-              price="$6"
-              description="Per person"
-              features={[
-                "Hockey & Figure Skates",
-                "Youth & Adult Sizes",
-                "Exchange sizes anytime",
-              ]}
-            />
           </div>
         </div>
       </section>
 
-      {/* Parties & Ice Bookings Section */}
-      <section className="bg-[#0f1340] py-8 pb-4 sm:pb-12 -mt-[25px]">
+      {/* Pricing Section */}
+      <section className={`${PAGE_BG} py-10`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+          <h2 className="text-[1.7rem] sm:text-[2.15625rem] mb-2 text-white text-center">
+            Pricing Options
+          </h2>
+          <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+          <p className="text-center text-gray-200 mb-6 font-semibold">
+            Jersey included • Goalies play for FREE
+          </p>
+
+          <div className="flex justify-center w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 items-stretch gap-6 sm:gap-x-10 w-full max-w-5xl">
+              <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
+                <PriceCard
+                  title="Games Only"
+                  price="$550"
+                  description="Jersey included"
+                  features={["Non-checking league"]}
+                />
+              </div>
+
+              <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
+                <PriceCard
+                  title="Games + Weekly Practice"
+                  price="$800"
+                  description="Jersey included"
+                  features={["Friday practice (limited spots)", "Sunday games"]}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Schedule header + divider */}
+      <section className={`${PAGE_BG} pt-2 pb-0`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
           <h2 className="text-[1.5625rem] sm:text-[2.2625rem] mb-0 sm:mb-5 text-white text-center">
-            Parties & Ice Bookings
+            Schedule
+          </h2>
+          <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+        </div>
+      </section>
+
+      {/* Weekly Schedules (single card) */}
+      <div className="w-[92%] sm:w-full max-w-6xl mx-auto my-8 mt-2">
+        <div className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 ${SHADOW}`}>
+          {/* ✅ background only */}
+          <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
+          {/* ✅ content full opacity */}
+          <div className="relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
+              {/* LEFT: Friday Practice */}
+              <div className="pt-8 sm:pt-20">
+                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 -mt-[40px] text-center">
+                  Friday Practice Schedule
+                </h3>
+
+                <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
+                  <li>• 4:10 PM — Mites</li>
+                  <li>• 5:20 PM — Squirts</li>
+                  <li>• 6:30 PM — Peewee</li>
+                </ul>
+
+                <p className="text-white mt-4 text-[0.92rem] text-center">
+                  Limited practice spots available.
+                </p>
+              </div>
+
+              {/* RIGHT: Sunday Games */}
+              <div className="md:border-l md:border-white/25 md:pl-8">
+                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-4 text-center">
+                  Sunday Game Schedule
+                </h3>
+
+                <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
+                  <li>• 7:00 AM — Mites</li>
+                  <li>• 8:10 AM — Mites</li>
+                  <li>• 9:20 AM — Squirt</li>
+                  <li>• 10:30 AM — Squirt</li>
+                  <li>• 1:30 PM — Peewee</li>
+                  <li>• 2:40 PM — Peewee</li>
+                  <li>• 3:55 PM — Bantam</li>
+                  <li>• 5:20 PM — Bantam</li>
+                  <li>• 6:50 PM — U16-18</li>
+                  <li>• 8:15 PM — U16-18</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Registration / Contact (combined) */}
+      <section className={`${PAGE_BG} py-8 pb-10`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+          <h2 className="text-[1.5625rem] sm:text-[2.2625rem] mb-0 sm:mb-5 text-white text-center">
+            Registration
           </h2>
           <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
-          {/* ✅ UPDATED: wider container ONLY on desktop (lg+) so the two cards get wider */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 w-[90%] sm:w-full max-w-4xl lg:max-w-6xl xl:max-w-[72rem] mx-auto my-8 gap-8 sm:gap-12 lg:gap-[72px]">
-            {/* ✅ card shadow */}
-            <div
-              className={`bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center ${SHADOW}`}
-            >
-              <h3 className="text-white text-[1.378125rem] sm:text-[1.65375rem] mb-4 -mt-[5px]">
-                Birthday Parties
-              </h3>
+          <div className="w-[90%] sm:w-full max-w-3xl mx-auto my-8">
+            <div className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 text-center ${SHADOW}`}>
+              {/* ✅ background only */}
+              <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
+              {/* ✅ content full opacity */}
+              <div className="relative z-10">
+                <h3 className="text-white text-[1.35rem] sm:text-[1.65rem] mb-2 -mt-[10px]">
+                  Register Today!
+                </h3>
 
-              {/* ✅ button shadow */}
-              <a
-                href="https://www.wingsarena.com/events"
-                className={`bg-[#2c3f5d] text-gray-200 px-[3.85375rem] py-[1.126875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mb-4 font-bold ${SHADOW}`}
-              >
-                Learn More
-              </a>
+                <p className="text-white leading-relaxed">
+                  Use the QR code or click the link below to register.
+                </p>
 
-              <p className="text-gray-300 text-[0.9646875rem] mt-1 font-bold leading-7">
-                For birthday party inquiries email: jwanderlingh@wingsarena.com
-              </p>
-            </div>
-
-            {/* ✅ card shadow */}
-            <div
-              className={`bg-gray-800 rounded-lg border border-gray-700 p-[1.65375rem] text-center ${SHADOW}`}
-            >
-              <h3 className="text-white text-[1.378125rem] sm:text-[1.65375rem] mb-4 -mt-[5px]">
-                Private Ice Bookings
-              </h3>
-
-              {/* ✅ button shadow */}
-              <a
-                href="https://www.catchcorner.com/facility-page/embedded/rental/wings-arena"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`bg-[#b2dbd7] text-gray-900 px-[2.35375rem] py-[0.526875rem] rounded-md hover:bg-[#9ccbc7] hover:scale-105 transition-all inline-block mt-[2px] ${SHADOW}`}
-              >
-                {/* ✅ image shadow */}
                 <img
-                  src={catchCornerLogo}
-                  alt="Book with CatchCorner"
-                  className={`h-[2.075rem] sm:h-[2.81rem] rounded-md`}
+                  src={qrCode}
+                  alt="Registration QR Code"
+                  className="mx-auto mt-5 w-[120px] sm:w-[160px] h-auto rounded-md bg-white p-2"
                 />
-              </a>
-              <p className="text-gray-100 text-[0.9646875rem] mt-4 font-bold">
-                Ice time, on your watch. Book your next skate now!
-              </p>
+
+                <a
+                  href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=3982414"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block font-bold underline underline-offset-4 text-blue hover:opacity-100 transition-opacity"
+                >
+                  Click Here to Register
+                </a>
+
+                <div className="my-6 h-px w-full bg-white/25" />
+
+                <h3 className="text-white text-[1.35rem] sm:text-[1.65rem] mb-3">
+                  Questions?
+                </h3>
+
+                <p className="text-white">
+                  Email: <span className="font-semibold">Kebanks@wingsarena.com</span>
+                </p>
+
+                <div className="mt-4 text-white space-y-1">
+                  <p className="font-semibold text-white">Wings Arena</p>
+                  <p>5 Barry Place • Stamford, CT 06902</p>
+                  <p>203.357.1055</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      {/* ✅ Guaranteed move up 20px: use translate instead of relying on margins */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-18 -mt-[60px] sm:mt-0 order-2 sm:order-none -translate-y-[20px]">
-        <h2 className="text-2xl sm:text-4xl mb-6 sm:mb-6 text-white text-center">
-          Gallery
-        </h2>
-        <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
-
-        {/* ✅ gallery image area shadow */}
-        <div className={`rounded-lg overflow-hidden`}>
-          <ImageCarousel images={galleryImages} interval={3000} />
         </div>
       </section>
 
       {/* FAQ Section */}
-      {/* ✅ Guaranteed move up 50px: use translate instead of relying on margins */}
-      <section className="bg-[#0f1340] py-12 sm:py-12 pt-0 sm:pt-12 order-1 sm:order-none mt-[35px] sm:mt-0 -translate-y-[15px]">
+      <section className={`${PAGE_BG} py-12 sm:py-12 pt-0 sm:pt-12 mt-[35px] sm:mt-0 -translate-y-[15px]`}>
         <div className="max-w-[58.08rem] mx-auto px-4 sm:px-6 xl:px-8">
           <h2 className="text-2xl sm:text-3xl mb-4 sm:mb-6 text-white text-center">
             Frequently Asked Questions
           </h2>
           <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
-          {/* ✅ accordion (card) shadow */}
-          <Accordion
-            type="single"
-            collapsible
-            className={`bg-[#b2dbd7] rounded-lg border border-gray-700 px-4 sm:px-6 ${SHADOW}`}
-          >
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Do I need to bring my own skates?</AccordionTrigger>
-              <AccordionContent>
-                No, skate rentals are available for a small fee. We have sizes
-                for all ages, from toddlers to adults. However, you're welcome
-                to bring your own skates if you prefer.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>What should I wear to public skate?</AccordionTrigger>
-              <AccordionContent>
-                We recommend wearing comfortable, warm clothing that allows for
-                movement. Long pants are recommended, and layers are ideal as
-                the rink temperature is kept cool. Gloves or mittens are
-                strongly encouraged for hand protection.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Are skating aids available for beginners?</AccordionTrigger>
-              <AccordionContent>
-                Yes, we have skating aids available to help beginners learn to
-                skate (limited quantity). These are especially helpful for young
-                children and first-time skaters. Staff members are also
-                available to provide basic guidance.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4">
-              <AccordionTrigger>Can I book a birthday party or group event?</AccordionTrigger>
-              <AccordionContent>
-                Absolutely! We host birthday parties and group event bookings.
-                These include reserved skating time, party room rental, and
-                various add-on options. For more info and availability, email
-                our Events Coordinator - jwanderlingh@wingsarena.com
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {/* ✅ Accordion wrapper uses same background-overlay pattern */}
+          <div className={`relative overflow-hidden rounded-lg border border-white/20 ${SHADOW}`}>
+            <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
+
+            <div className="relative z-10">
+              <Accordion
+                type="single"
+                collapsible
+                className="bg-transparent px-4 sm:px-6"
+              >
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="text-white">
+                    Who is this league for?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white">
+                    This is a recreational in-house spring league for travel team
+                    players, designed for Ages 7–18 (Mite/Squirt/Peewee/Bantam/U16-18).
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="text-white">
+                    What’s included with registration?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white">
+                    Pricing options include Games Only ($550) or Games + 1 Weekly
+                    Practice ($800). A jersey is included with both options.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-3">
+                  <AccordionTrigger className="text-white">
+                    When are practices and games?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white">
+                    Practices are Fridays (limited spots). Games are Sundays. See the
+                    Weekly Schedule section above for the full breakdown by age group.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="text-white">
+                    Do goalies have to pay?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white">
+                    No — goalies play for FREE.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
         </div>
       </section>
     </div>

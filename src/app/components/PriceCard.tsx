@@ -18,11 +18,13 @@ export function PriceCard({
 
   return (
     <div
-      className={`bg-gray-800 rounded-lg border border-gray-700 p-6 h-full ${className}`}
+      className={`relative rounded-lg border border-white/20 p-6 h-full overflow-hidden ${className}`}
     >
-      {/* Default: desktop (>=1001px) left-aligned */}
-      <div className="flex flex-col items-start text-left h-full">
-        {/* ✅ Nudge ONLY the Admission "top block" up slightly so it matches Skate Rental */}
+      {/* ✅ Background only (text stays 100%) */}
+      <div className="absolute inset-0 bg-[#e51837]/85 backdrop-blur-[2px]" />
+
+      {/* ✅ Content stays full opacity */}
+      <div className="relative z-10 flex flex-col items-start text-left h-full">
         <div
           className={[
             "w-full",
@@ -31,7 +33,6 @@ export function PriceCard({
             isAdmission ? "-mt-[1px]" : "",
           ].join(" ")}
         >
-          {/* ✅ Lower ONLY "Skate Rental" title font size */}
           <h3
             className={[
               "text-white font-semibold",
@@ -48,7 +49,7 @@ export function PriceCard({
               {price}
             </div>
             {description ? (
-              <div className="text-gray-300 text-sm mt-2">{description}</div>
+              <div className="text-gray-200 text-sm mt-2">{description}</div>
             ) : null}
           </div>
         </div>
@@ -56,7 +57,7 @@ export function PriceCard({
         {features.length > 0 ? (
           <ul
             className={[
-              "mt-6 space-y-3 text-gray-200 text-sm list-disc list-inside",
+              "mt-6 space-y-3 text-gray-100 text-sm list-disc list-inside",
               "min-[601px]:max-[1000px]:text-center",
               "min-[601px]:max-[1000px]:list-inside",
             ].join(" ")}

@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   // GitHub Pages project site:
   // https://avmannino.github.io/public_skate_webpage_embed/
-  base: "/public_skate_webpage_embed/",
+  base: "/spring_houseleague_webpage_embed/",
 
   plugins: [react(), tailwindcss()],
   resolve: {
