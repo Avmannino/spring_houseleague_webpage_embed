@@ -330,7 +330,7 @@ export default function App() {
                   href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=3982414"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block font-bold underline underline-offset-4 text-blue hover:opacity-100 transition-opacity"
+                  className="mt-6 inline-block font-bold underline underline-offset-4 text-blue-600 hover:text-blue-700 transition text-lg md:text-3xl lg:text-3xl xl:text-4xl"
                 >
                   Click Here to Register
                 </a>
