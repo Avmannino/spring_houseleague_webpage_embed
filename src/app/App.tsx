@@ -57,7 +57,7 @@ export default function App() {
                 <img
                   src={logo}
                   alt="Wings Arena"
-                  className="w-[75.04px] mt-[-40px] -mb-[0px] ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
+                  className="w-[65.04px] mt-[-40px] mb-2 ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
                 />
                 <h1 className="text-4xl lg:text-4xl text-white text-center lg:text-center min-[1001px]:max-[1325px]:pl-[28px]">
                   2026 In-House Spring League

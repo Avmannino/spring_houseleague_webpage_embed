@@ -57,14 +57,40 @@ export function PriceCard({
         {features.length > 0 ? (
           <ul
             className={[
-              "mt-6 space-y-3 text-gray-100 text-sm list-disc list-inside",
+              "mt-6 space-y-2 text-gray-100 text-sm",
+              // ✅ Desktop default bullets
+              "list-disc list-inside",
+              // ✅ Mobile: remove native marker bullets + center
+              "max-[600px]:list-none max-[600px]:pl-11",
+              // ✅ Keep your existing tablet centering
               "min-[601px]:max-[1000px]:text-center",
               "min-[601px]:max-[1000px]:list-inside",
             ].join(" ")}
           >
             {features.map((feature, idx) => (
-              <li key={idx} className="leading-relaxed">
-                {feature}
+              <li
+                key={idx}
+                className={[
+                  "leading-relaxed",
+                  // ✅ Mobile: make the line a 2-col grid so wrapped lines
+                  // align under the TEXT (not under the bullet), while still centered
+                  "max-[600px]:grid max-[600px]:grid-cols-[14px_1fr] max-[600px]:gap-x-1",
+                  "max-[600px]:items-start max-[600px]:justify-center",
+                  "max-[600px]:w-fit max-[600px]:mx-auto",
+                ].join(" ")}
+              >
+                {/* custom bullet for mobile */}
+                <span
+                  aria-hidden
+                  className="max-[600px]:block max-[600px]:text-center"
+                >
+                  •
+                </span>
+
+                {/* text column */}
+                <span className="max-[600px]:block max-[600px]:text-center">
+                  {feature}
+                </span>
               </li>
             ))}
           </ul>
