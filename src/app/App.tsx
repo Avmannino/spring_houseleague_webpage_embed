@@ -130,10 +130,10 @@ export default function App() {
                 title="Ages (Birth Years)"
                 description={
                   <>
-                    <strong>Mites</strong> (2020–2017) • <strong>Squirts</strong>{" "}
-                    (2016–2015) • <strong>Peewee</strong> (2014–2013) •{" "}
-                    <strong>Bantam</strong> (2012–2011) • <strong>U16-18</strong>{" "}
-                    (2010–2007)
+                    <strong>Mites</strong> (2020–2018) • <strong>Squirts</strong>{" "}
+                    (2017–2016) • <strong>Peewee</strong> (2015–2014) •{" "}
+                    <strong>Bantam</strong> (2013–2012) • <strong>U16-18</strong>{" "}
+                    (2011–2008)
                   </>
                 }
                 iconSize="w-[35.35px] h-[35.35px]"
