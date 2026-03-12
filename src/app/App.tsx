@@ -1,7 +1,6 @@
-import type React from "react";
+import React, { useMemo, useState } from "react";
 
 import logo from "../assets/wingslogo.png";
-import familyIcon from "../assets/familyicon.png";
 import heroImage1 from "../assets/hero/hero-1.jpg";
 import heroImage2 from "../assets/hero/hero-2.jpg";
 import heroImage3 from "../assets/hero/hero-3.jpg";
@@ -15,7 +14,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/app/components/ui/accordion";
-import { Snowflake, Cross } from "lucide-react";
 import coedIcon from "../assets/icons/coed.png";
 import allAgesIcon from "../assets/icons/icons8-birth-date-100.png";
 import practiceIcon from "../assets/icons/icons8-practice-64.png";
@@ -23,7 +21,733 @@ import hockeyFieldIcon from "../assets/icons/icons8-hockey-field-100.png";
 import coachingIcon from "../assets/icons/icons8-coaching-100.png";
 import qrCode from "../assets/Registration_QR.png";
 
+type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
+
+type GameRow = {
+  id: string;
+  date: string;
+  time: string;
+  matchup: string;
+  rink: string;
+  status: string;
+};
+
+const AGE_GROUPS: AgeGroup[] = [
+  "Mites",
+  "Squirt",
+  "Peewee",
+  "Bantam",
+  "U16-18",
+];
+
+const GAME_DATA: Record<AgeGroup, GameRow[]> = {
+  Mites: [
+    {
+      id: "mites-1",
+      date: "Sunday, March 15th",
+      time: "7:00 AM",
+      matchup: "Canada vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-2",
+      date: "Sunday, March 15th",
+      time: "8:10 AM",
+      matchup: "USA vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-3",
+      date: "Sunday, March 22nd",
+      time: "7:00 AM",
+      matchup: "Canada vs USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-4",
+      date: "Sunday, March 22nd",
+      time: "8:10 AM",
+      matchup: "Sweden vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-5",
+      date: "Sunday, March 29th",
+      time: "7:00 AM",
+      matchup: "Sweden vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-6",
+      date: "Sunday, March 29th",
+      time: "8:10 AM",
+      matchup: "USA vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-7",
+      date: "Sunday, April 12th",
+      time: "7:00 AM",
+      matchup: "Sweden vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-8",
+      date: "Sunday, April 12th",
+      time: "8:10 AM",
+      matchup: "USA vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-9",
+      date: "Sunday, April 19th",
+      time: "7:00 AM",
+      matchup: "Germany/Lightning vs USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-10",
+      date: "Sunday, April 19th",
+      time: "8:10 AM",
+      matchup: "Sweden vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-11",
+      date: "Sunday, April 26th",
+      time: "7:00 AM",
+      matchup: "Canada vs USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-12",
+      date: "Sunday, April 26th",
+      time: "8:10 AM",
+      matchup: "Sweden vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-13",
+      date: "Sunday, May 3rd",
+      time: "7:00 AM",
+      matchup: "Germany/Lightning vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-14",
+      date: "Sunday, May 3rd",
+      time: "8:10 AM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-15",
+      date: "Sunday, May 10th",
+      time: "7:00 AM",
+      matchup: "Sweden vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-16",
+      date: "Sunday, May 10th",
+      time: "8:10 AM",
+      matchup: "USA vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-17",
+      date: "Sunday, May 17th",
+      time: "7:00 AM",
+      matchup: "USA vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-18",
+      date: "Sunday, May 17th",
+      time: "8:10 AM",
+      matchup: "Sweden vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-19",
+      date: "Sunday, May 31st",
+      time: "7:00 AM",
+      matchup: "USA vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-20",
+      date: "Sunday, May 31st",
+      time: "8:10 AM",
+      matchup: "Germany/Lightning vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-21",
+      date: "Sunday, June 7th",
+      time: "7:00 AM",
+      matchup: "Sweden vs USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "mites-22",
+      date: "Sunday, June 7th",
+      time: "8:10 AM",
+      matchup: "Canada vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+  ],
+
+  Squirt: [
+    {
+      id: "squirt-1",
+      date: "Sunday, March 15th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-2",
+      date: "Sunday, March 22nd",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-3",
+      date: "Sunday, March 22nd",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-4",
+      date: "Sunday, March 29th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-5",
+      date: "Sunday, March 29th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-6",
+      date: "Sunday, April 12th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-7",
+      date: "Sunday, April 12th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-8",
+      date: "Sunday, April 19th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-9",
+      date: "Sunday, April 19th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-10",
+      date: "Sunday, April 26th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-11",
+      date: "Sunday, April 26th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-12",
+      date: "Sunday, May 3rd",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-13",
+      date: "Sunday, May 3rd",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-14",
+      date: "Sunday, May 10th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-15",
+      date: "Sunday, May 10th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-16",
+      date: "Sunday, May 17th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-17",
+      date: "Sunday, May 17th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-18",
+      date: "Sunday, May 31st",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-19",
+      date: "Sunday, May 31st",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-20",
+      date: "Sunday, June 7th",
+      time: "9:20 AM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "squirt-21",
+      date: "Sunday, June 7th",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany/Lightning",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+  ],
+
+  Peewee: [
+    {
+      id: "peewee-1",
+      date: "Sunday, March 15th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-2",
+      date: "Sunday, March 22nd",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-3",
+      date: "Sunday, March 22nd",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-4",
+      date: "Sunday, March 29th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-5",
+      date: "Sunday, March 29th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-6",
+      date: "Sunday, April 12th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-7",
+      date: "Sunday, April 12th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-8",
+      date: "Sunday, April 19th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-9",
+      date: "Sunday, April 19th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-10",
+      date: "Sunday, April 26th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-11",
+      date: "Sunday, April 26th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-12",
+      date: "Sunday, May 3rd",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-13",
+      date: "Sunday, May 3rd",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-14",
+      date: "Sunday, May 10th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-15",
+      date: "Sunday, May 10th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-16",
+      date: "Sunday, May 17th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-17",
+      date: "Sunday, May 17th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-18",
+      date: "Sunday, May 31st",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-19",
+      date: "Sunday, May 31st",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-20",
+      date: "Sunday, June 7th",
+      time: "1:30 PM",
+      matchup: "TBD",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "peewee-21",
+      date: "Sunday, June 7th",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lightning)",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+  ],
+
+  Bantam: [
+    {
+      id: "bantam-1",
+      date: "Sunday, March 15th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-2",
+      date: "Sunday, March 22nd",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-3",
+      date: "Sunday, March 29th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-4",
+      date: "Sunday, April 12th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-5",
+      date: "Sunday, April 19th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-6",
+      date: "Sunday, April 26th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-7",
+      date: "Sunday, May 3rd",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-8",
+      date: "Sunday, May 10th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-9",
+      date: "Sunday, May 17th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-10",
+      date: "Sunday, May 31st",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-11",
+      date: "Sunday, June 7th",
+      time: "5:20 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+  ],
+
+  "U16-18": [
+    {
+      id: "u16-1",
+      date: "Sunday, March 15th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-2",
+      date: "Sunday, March 22nd",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-3",
+      date: "Sunday, March 29th",
+      time: "6:50 PM",
+      matchup: "",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-4",
+      date: "Sunday, April 12th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-5",
+      date: "Sunday, April 19th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-6",
+      date: "Sunday, April 26th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-7",
+      date: "Sunday, May 3rd",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-8",
+      date: "Sunday, May 10th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-9",
+      date: "Sunday, May 17th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-10",
+      date: "Sunday, May 31st",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-11",
+      date: "Sunday, June 7th",
+      time: "6:50 PM",
+      matchup: "USA vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+  ],
+};
+
 export default function App() {
+  const [activeGroup, setActiveGroup] = useState<AgeGroup>("Mites");
+
   const heroImages = [
     { url: heroImage3, alt: "Wings Arena seating area" },
     { url: heroImage1, alt: "Wings Arena ice rink facility" },
@@ -31,12 +755,21 @@ export default function App() {
     { url: heroImage4, alt: "Ice skates rental" },
   ];
 
-  // ✅ One shadow token you can reuse everywhere (cards/images/buttons/schedule wrappers)
   const SHADOW = "shadow-[0_8px_20px_rgba(0,0,0,0.45)]";
-
-  // ✅ NEW COLORS
   const PAGE_BG = "bg-[#1f419b]";
-  const CARD_OVERLAY = "bg-[#e51837]/85"; // background only (text stays 100%)
+  const CARD_OVERLAY = "bg-[#e51837]/85";
+
+  const activeGames = useMemo(() => {
+    return GAME_DATA[activeGroup].filter((game) => {
+      const matchup = game.matchup?.trim().toLowerCase() ?? "";
+
+      return (
+        matchup !== "" &&
+        matchup !== "tbd" &&
+        matchup !== "4 vs 4 - all players bring light & dark jersey"
+      );
+    });
+  }, [activeGroup]);
 
   return (
     <div className={`min-h-screen ${PAGE_BG} flex flex-col sm:block`}>
@@ -52,7 +785,6 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-5 xl:px-0 py-12">
           <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-8 lg:gap-x-[162px] items-center">
             <div className="lg:-ml-[60px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:pr-5">
-              {/* Logo + header */}
               <div className="flex flex-col items-center lg:items-center mb-6">
                 <img
                   src={logo}
@@ -80,7 +812,6 @@ export default function App() {
                   <strong>game play</strong>. Non-checking league.
                 </p>
 
-                {/* ✅ ADDED per request */}
                 <p className="text-gray-300 font-semibold">
                   Practice &amp; skills development designed to provide a
                   structured, competitive hockey experience
@@ -88,7 +819,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* HeroCarousel */}
             <div
               className={`
                 relative h-64 sm:h-80 lg:h-96
@@ -102,6 +832,151 @@ export default function App() {
               `}
             >
               <HeroCarousel images={heroImages} interval={3000} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Games Section */}
+      <section className={`${PAGE_BG} py-8 sm:py-10`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+          <div className="text-center mb-5">
+            <h2 className="text-[1.65rem] sm:text-[2.2rem] text-white">
+              Upcoming / League Schedule
+            </h2>
+            <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+            <p className="text-gray-200 text-sm sm:text-base">
+              Select an age group to view that division’s upcoming games.
+            </p>
+          </div>
+
+          <div
+            className={`relative overflow-hidden rounded-[24px] border border-[#b2dbd7]/30 ${SHADOW}`}
+          >
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(229,24,55,0.16)_0%,rgba(0,54,102,0.22)_22%,rgba(255,255,255,0.06)_100%)]" />
+            <div className="absolute inset-0 bg-[#1b3f97]/45 backdrop-blur-[3px]" />
+
+            <div className="relative z-10">
+              {/* Tabs */}
+              <div className="border-b border-white/15 px-3 sm:px-5 pt-3 sm:pt-4">
+                <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                  {AGE_GROUPS.map((group) => {
+                    const isActive = activeGroup === group;
+
+                    return (
+                      <button
+                        key={group}
+                        type="button"
+                        onClick={() => setActiveGroup(group)}
+                        className={[
+                          "shrink-0 rounded-full border px-4 py-2 text-sm sm:text-[15px] font-semibold transition whitespace-nowrap",
+                          isActive
+                            ? "bg-[#e51837] text-white border-[#ff9aad] shadow-[0_6px_18px_rgba(229,24,55,0.28)]"
+                            : "bg-white/12 text-[#eef8fa] border-white/20 hover:bg-white/18",
+                        ].join(" ")}
+                      >
+                        {group}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Desktop table */}
+              <div className="hidden md:block">
+                <div className="max-h-[560px] overflow-y-auto">
+                  <table className="w-full border-collapse">
+                    <thead className="sticky top-0 z-20">
+                      <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
+                        <th className="px-5 py-4 text-left font-bold">Date</th>
+                        <th className="px-5 py-4 text-left font-bold">Time</th>
+                        <th className="px-5 py-4 text-left font-bold">Matchup</th>
+                        <th className="px-5 py-4 text-left font-bold">Rink</th>
+                        <th className="px-5 py-4 text-left font-bold">Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {activeGames.map((game, index) => (
+                        <tr
+                          key={game.id}
+                          className={
+                            index % 2 === 0
+                              ? "bg-white/10 text-white"
+                              : "bg-[#0d2f5a]/55 text-white"
+                          }
+                        >
+                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                            {game.date}
+                          </td>
+                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
+                            {game.time}
+                          </td>
+                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                            {game.matchup}
+                          </td>
+                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                            {game.rink}
+                          </td>
+                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
+                              {game.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Mobile cards */}
+              <div className="md:hidden px-3 py-3">
+                <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
+                  {activeGames.map((game) => (
+                    <div
+                      key={game.id}
+                      className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                          <p className="text-[15px] font-semibold leading-snug">
+                            {game.matchup}
+                          </p>
+                          <p className="text-[13px] text-[#d6edf1] mt-1">
+                            {game.date}
+                          </p>
+                        </div>
+
+                        <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
+                          {game.status}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
+                        <div className="rounded-xl bg-white/10 px-3 py-2">
+                          <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                            Time
+                          </p>
+                          <p className="font-medium">{game.time}</p>
+                        </div>
+
+                        <div className="rounded-xl bg-white/10 px-3 py-2">
+                          <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                            Rink
+                          </p>
+                          <p className="font-medium">{game.rink}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
+                Viewing:{" "}
+                <span className="font-semibold text-white">{activeGroup}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -122,7 +997,6 @@ export default function App() {
         "
       >
         <div className="max-[640px]:w-[100vw] max-[640px]:ml-[calc(50%-50vw)] max-[640px]:px-3 max-[640px]:box-border">
-          {/* Row 1: Ages card centered */}
           <div className="flex justify-center mb-[calc(1rem*1.0356)]">
             <div className={`w-full max-w-[760px] [&>*]:!w-full [&>*]:${SHADOW}`}>
               <InfoBox
@@ -130,7 +1004,7 @@ export default function App() {
                 title="Ages (Birth Years)"
                 description={
                   <>
-                    <strong>Mites</strong> (2020–2018) • <strong>Squirts</strong>{" "}
+                    <strong>Mites</strong> (2020–2018) • <strong>Squirt</strong>{" "}
                     (2017–2016) • <strong>Peewee</strong> (2015–2014) •{" "}
                     <strong>Bantam</strong> (2013–2012) • <strong>U16-18</strong>{" "}
                     (2011–2008)
@@ -145,7 +1019,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 2: 4 cards centered */}
           <div className="flex justify-center">
             <div className="grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch">
               <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
@@ -217,7 +1090,9 @@ export default function App() {
 
           <div className="flex justify-center w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 items-stretch gap-6 sm:gap-x-10 w-full max-w-5xl">
-              <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
+              <div
+                className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
+              >
                 <PriceCard
                   title="Games Only"
                   price="$550"
@@ -226,7 +1101,9 @@ export default function App() {
                 />
               </div>
 
-              <div className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}>
+              <div
+                className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
+              >
                 <PriceCard
                   title="Games + Weekly Practice"
                   price="$800"
@@ -249,15 +1126,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* Weekly Schedules (single card) */}
+      {/* Weekly Schedules */}
       <div className="w-[92%] sm:w-full max-w-6xl mx-auto my-8 mt-2">
-        <div className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 ${SHADOW}`}>
-          {/* ✅ background only */}
+        <div
+          className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 ${SHADOW}`}
+        >
           <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
-          {/* ✅ content full opacity */}
           <div className="relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
-              {/* LEFT: Friday Practice */}
               <div className="pt-8 sm:pt-20">
                 <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 -mt-[40px] text-center">
                   Friday Practice Schedule
@@ -265,7 +1141,7 @@ export default function App() {
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
                   <li>• 4:10 PM — Mites</li>
-                  <li>• 5:20 PM — Squirts</li>
+                  <li>• 5:20 PM — Squirt</li>
                   <li>• 6:30 PM — Peewee</li>
                 </ul>
 
@@ -274,7 +1150,6 @@ export default function App() {
                 </p>
               </div>
 
-              {/* RIGHT: Sunday Games */}
               <div className="md:border-l md:border-white/25 md:pl-8">
                 <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-4 text-center">
                   Sunday Game Schedule
@@ -283,14 +1158,10 @@ export default function App() {
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
                   <li>• 7:00 AM — Mites</li>
                   <li>• 8:10 AM — Mites</li>
-                  <li>• 9:20 AM — Squirt</li>
                   <li>• 10:30 AM — Squirt</li>
-                  <li>• 1:30 PM — Peewee</li>
                   <li>• 2:40 PM — Peewee</li>
-                  <li>• 3:55 PM — Bantam</li>
                   <li>• 5:20 PM — Bantam</li>
                   <li>• 6:50 PM — U16-18</li>
-                  <li>• 8:15 PM — U16-18</li>
                 </ul>
               </div>
             </div>
@@ -298,7 +1169,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* Registration / Contact (combined) */}
+      {/* Registration / Contact */}
       <section className={`${PAGE_BG} py-8 pb-10`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
           <h2 className="text-[1.5625rem] sm:text-[2.2625rem] mb-0 sm:mb-5 text-white text-center">
@@ -307,10 +1178,10 @@ export default function App() {
           <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
           <div className="w-[90%] sm:w-full max-w-3xl mx-auto my-8">
-            <div className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 text-center ${SHADOW}`}>
-              {/* ✅ background only */}
+            <div
+              className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 text-center ${SHADOW}`}
+            >
               <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
-              {/* ✅ content full opacity */}
               <div className="relative z-10">
                 <h3 className="text-white text-[1.35rem] sm:text-[1.65rem] mb-2 -mt-[10px]">
                   Register Today!
@@ -357,15 +1228,18 @@ export default function App() {
       </section>
 
       {/* FAQ Section */}
-      <section className={`${PAGE_BG} py-12 sm:py-12 pt-0 sm:pt-12 mt-[35px] sm:mt-0 -translate-y-[15px]`}>
+      <section
+        className={`${PAGE_BG} py-12 sm:py-12 pt-0 sm:pt-12 mt-[35px] sm:mt-0 -translate-y-[15px]`}
+      >
         <div className="max-w-[58.08rem] mx-auto px-4 sm:px-6 xl:px-8">
           <h2 className="text-2xl sm:text-3xl mb-4 sm:mb-6 text-white text-center">
             Frequently Asked Questions
           </h2>
           <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
 
-          {/* ✅ Accordion wrapper uses same background-overlay pattern */}
-          <div className={`relative overflow-hidden rounded-lg border border-white/20 ${SHADOW}`}>
+          <div
+            className={`relative overflow-hidden rounded-lg border border-white/20 ${SHADOW}`}
+          >
             <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
 
             <div className="relative z-10">
@@ -400,7 +1274,7 @@ export default function App() {
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
                     Practices are Fridays (limited spots). Games are Sundays. See the
-                    Weekly Schedule section above for the full breakdown by age group.
+                    schedule sections above for the full breakdown by age group.
                   </AccordionContent>
                 </AccordionItem>
 

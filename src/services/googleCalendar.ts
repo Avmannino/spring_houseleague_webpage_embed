@@ -62,7 +62,6 @@ function getDayOfWeek(dateString: string): string {
 }
 
 export async function fetchCalendarEvents(): Promise<CalendarEvent[]> {
-  // If not configured, populate nothing
   if (!CALENDAR_ID || !API_KEY) {
     console.error(
       "[Calendar] Missing env vars. Set VITE_GOOGLE_CALENDAR_ID and VITE_GOOGLE_CALENDAR_API_KEY."
