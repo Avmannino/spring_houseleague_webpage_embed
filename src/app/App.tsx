@@ -40,6 +40,52 @@ const AGE_GROUPS: AgeGroup[] = [
   "U16-18",
 ];
 
+const LEAGUE_YEAR = 2026;
+
+const MONTH_MAP: Record<string, number> = {
+  january: 0,
+  february: 1,
+  march: 2,
+  april: 3,
+  may: 4,
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+  october: 9,
+  november: 10,
+  december: 11,
+};
+
+function parseGameDateTime(dateStr: string, timeStr: string): Date | null {
+  // Example date: "Sunday, March 15th"
+  // Example time: "7:00 AM"
+  const cleanedDate = dateStr.replace(/,/g, "").trim();
+  const dateMatch = cleanedDate.match(
+    /^(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\s+([A-Za-z]+)\s+(\d{1,2})(st|nd|rd|th)?$/i
+  );
+
+  if (!dateMatch) return null;
+
+  const monthName = dateMatch[2].toLowerCase();
+  const day = Number(dateMatch[3]);
+  const monthIndex = MONTH_MAP[monthName];
+
+  if (monthIndex === undefined || Number.isNaN(day)) return null;
+
+  const timeMatch = timeStr.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!timeMatch) return null;
+
+  let hour = Number(timeMatch[1]);
+  const minute = Number(timeMatch[2]);
+  const meridiem = timeMatch[3].toUpperCase();
+
+  if (meridiem === "PM" && hour !== 12) hour += 12;
+  if (meridiem === "AM" && hour === 12) hour = 0;
+
+  return new Date(LEAGUE_YEAR, monthIndex, day, hour, minute, 0, 0);
+}
+
 const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   Mites: [
     {
@@ -223,169 +269,161 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   Squirt: [
     {
       id: "squirt-1",
-      date: "Sunday, March 15th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, March 22nd",
+      time: "9:20 AM",
+      matchup: "Sweden vs Netherlands",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-2",
       date: "Sunday, March 22nd",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Sweden vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-3",
-      date: "Sunday, March 22nd",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, March 29th",
+      time: "9:20 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-4",
       date: "Sunday, March 29th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-5",
-      date: "Sunday, March 29th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, April 12th",
+      time: "9:20 AM",
+      matchup: "Germany (NR Lightning) vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-6",
       date: "Sunday, April 12th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-7",
-      date: "Sunday, April 12th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, April 19th",
+      time: "9:20 AM",
+      matchup: "Germany (NR Lightning) vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-8",
       date: "Sunday, April 19th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-9",
-      date: "Sunday, April 19th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, April 26th",
+      time: "9:20 AM",
+      matchup: "Sweden vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-10",
       date: "Sunday, April 26th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-11",
-      date: "Sunday, April 26th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, May 3rd",
+      time: "9:20 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-12",
       date: "Sunday, May 3rd",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-13",
-      date: "Sunday, May 3rd",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, May 10th",
+      time: "9:20 AM",
+      matchup: "Sweden vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-14",
       date: "Sunday, May 10th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-15",
-      date: "Sunday, May 10th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, May 17th",
+      time: "9:20 AM",
+      matchup: "Netherlands vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-16",
       date: "Sunday, May 17th",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-17",
-      date: "Sunday, May 17th",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, May 31st",
+      time: "9:20 AM",
+      matchup: "Sweden vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-18",
       date: "Sunday, May 31st",
-      time: "9:20 AM",
-      matchup: "TBD",
+      time: "10:30 AM",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-19",
-      date: "Sunday, May 31st",
-      time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      date: "Sunday, June 7th",
+      time: "9:20 AM",
+      matchup: "Netherlands vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "squirt-20",
       date: "Sunday, June 7th",
-      time: "9:20 AM",
-      matchup: "TBD",
-      rink: "Wings Arena",
-      status: "Scheduled",
-    },
-    {
-      id: "squirt-21",
-      date: "Sunday, June 7th",
       time: "10:30 AM",
-      matchup: "Netherlands vs Germany/Lightning",
+      matchup: "Netherlands vs Germany (NR Lightning)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
@@ -394,169 +432,161 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   Peewee: [
     {
       id: "peewee-1",
-      date: "Sunday, March 15th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, March 22nd",
+      time: "1:30 PM",
+      matchup: "Finland vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-2",
       date: "Sunday, March 22nd",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Finland vs Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-3",
-      date: "Sunday, March 22nd",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, March 29th",
+      time: "1:30 PM",
+      matchup: "Sweden vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-4",
       date: "Sunday, March 29th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Sweden vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-5",
-      date: "Sunday, March 29th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, April 12th",
+      time: "1:30 PM",
+      matchup: "Germany (NR Lighting) vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-6",
       date: "Sunday, April 12th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Germany (NR Lighting) vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-7",
-      date: "Sunday, April 12th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, April 19th",
+      time: "1:30 PM",
+      matchup: "Finland vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-8",
       date: "Sunday, April 19th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Finland vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-9",
-      date: "Sunday, April 19th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, April 26th",
+      time: "1:30 PM",
+      matchup: "Sweden vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-10",
       date: "Sunday, April 26th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Sweden vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-11",
-      date: "Sunday, April 26th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, May 3rd",
+      time: "1:30 PM",
+      matchup: "Germany (NR Lighting) vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-12",
       date: "Sunday, May 3rd",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Germany (NR Lighting) vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-13",
-      date: "Sunday, May 3rd",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, May 10th",
+      time: "1:30 PM",
+      matchup: "Finland vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-14",
       date: "Sunday, May 10th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Finland vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-15",
-      date: "Sunday, May 10th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, May 17th",
+      time: "1:30 PM",
+      matchup: "Sweden vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-16",
       date: "Sunday, May 17th",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Sweden vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-17",
-      date: "Sunday, May 17th",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, May 31st",
+      time: "1:30 PM",
+      matchup: "Germany (NR Lighting) vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-18",
       date: "Sunday, May 31st",
-      time: "1:30 PM",
-      matchup: "TBD",
+      time: "2:40 PM",
+      matchup: "Germany (NR Lighting) vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-19",
-      date: "Sunday, May 31st",
-      time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      date: "Sunday, June 7th",
+      time: "1:30 PM",
+      matchup: "Finland vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "peewee-20",
       date: "Sunday, June 7th",
-      time: "1:30 PM",
-      matchup: "TBD",
-      rink: "Wings Arena",
-      status: "Scheduled",
-    },
-    {
-      id: "peewee-21",
-      date: "Sunday, June 7th",
       time: "2:40 PM",
-      matchup: "Finland vs Germany (NR Lightning)",
+      matchup: "Finland vs. Germany (NR Lighting)",
       rink: "Wings Arena",
       status: "Scheduled",
     },
@@ -565,8 +595,8 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   Bantam: [
     {
       id: "bantam-1",
-      date: "Sunday, March 15th",
-      time: "5:20 PM",
+      date: "Sunday, March 22nd",
+      time: "3:55 PM",
       matchup: "Canada vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
@@ -575,79 +605,151 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
       id: "bantam-2",
       date: "Sunday, March 22nd",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Finland vs Germany",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-3",
       date: "Sunday, March 29th",
-      time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      time: "3:55 PM",
+      matchup: "Germany vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-4",
-      date: "Sunday, April 12th",
+      date: "Sunday, March 29th",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Canada vs Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-5",
-      date: "Sunday, April 19th",
-      time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      date: "Sunday, April 12th",
+      time: "3:55 PM",
+      matchup: "Finland vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-6",
-      date: "Sunday, April 26th",
+      date: "Sunday, April 12th",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Germany vs Canada",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-7",
-      date: "Sunday, May 3rd",
-      time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      date: "Sunday, April 19th",
+      time: "3:55 PM",
+      matchup: "Germany vs Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-8",
-      date: "Sunday, May 10th",
+      date: "Sunday, April 19th",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Sweden vs Canada",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-9",
-      date: "Sunday, May 17th",
-      time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      date: "Sunday, April 26th",
+      time: "3:55 PM",
+      matchup: "Canada vs Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-10",
-      date: "Sunday, May 31st",
+      date: "Sunday, April 26th",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Sweden vs Germany",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "bantam-11",
+      date: "Sunday, May 3rd",
+      time: "3:55 PM",
+      matchup: "Sweden vs Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-12",
+      date: "Sunday, May 3rd",
+      time: "5:20 PM",
+      matchup: "Canada vs Germany",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-13",
+      date: "Sunday, May 10th",
+      time: "3:55 PM",
+      matchup: "Canada vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-14",
+      date: "Sunday, May 10th",
+      time: "5:20 PM",
+      matchup: "Finland vs Germany",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-15",
+      date: "Sunday, May 17th",
+      time: "3:55 PM",
+      matchup: "Germany vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-16",
+      date: "Sunday, May 17th",
+      time: "5:20 PM",
+      matchup: "Canada vs Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-17",
+      date: "Sunday, May 31st",
+      time: "3:55 PM",
+      matchup: "Finland vs Sweden",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-18",
+      date: "Sunday, May 31st",
+      time: "5:20 PM",
+      matchup: "Germany vs Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-19",
+      date: "Sunday, June 7th",
+      time: "3:55 PM",
+      matchup: "Germany vs Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "bantam-20",
       date: "Sunday, June 7th",
       time: "5:20 PM",
-      matchup: "Canada vs Sweden",
+      matchup: "Sweden vs Canada",
       rink: "Wings Arena",
       status: "Scheduled",
     },
@@ -656,17 +758,17 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   "U16-18": [
     {
       id: "u16-1",
-      date: "Sunday, March 15th",
+      date: "Sunday, March 22nd",
       time: "6:50 PM",
-      matchup: "USA vs Canada",
+      matchup: "USA vs. Netherlands",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-2",
       date: "Sunday, March 22nd",
-      time: "6:50 PM",
-      matchup: "USA vs Canada",
+      time: "8:15 PM",
+      matchup: "Canada vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
@@ -674,71 +776,143 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
       id: "u16-3",
       date: "Sunday, March 29th",
       time: "6:50 PM",
-      matchup: "",
+      matchup: "Finland vs. USA",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-4",
-      date: "Sunday, April 12th",
-      time: "6:50 PM",
-      matchup: "USA vs Canada",
+      date: "Sunday, March 29th",
+      time: "8:15 PM",
+      matchup: "Netherlands vs. Canada",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-5",
-      date: "Sunday, April 19th",
+      date: "Sunday, April 12th",
       time: "6:50 PM",
-      matchup: "USA vs Canada",
+      matchup: "Canada vs. USA",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-6",
-      date: "Sunday, April 26th",
-      time: "6:50 PM",
-      matchup: "USA vs Canada",
+      date: "Sunday, April 12th",
+      time: "8:15 PM",
+      matchup: "Finland vs. Netherlands",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-7",
-      date: "Sunday, May 3rd",
+      date: "Sunday, April 19th",
       time: "6:50 PM",
-      matchup: "USA vs Canada",
+      matchup: "Netherlands vs. Canada",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-8",
-      date: "Sunday, May 10th",
-      time: "6:50 PM",
-      matchup: "USA vs Canada",
+      date: "Sunday, April 19th",
+      time: "8:15 PM",
+      matchup: "USA vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-9",
-      date: "Sunday, May 17th",
+      date: "Sunday, April 26th",
       time: "6:50 PM",
-      matchup: "USA vs Canada",
+      matchup: "Finland vs. Netherlands",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-10",
-      date: "Sunday, May 31st",
-      time: "6:50 PM",
-      matchup: "USA vs Canada",
+      date: "Sunday, April 26th",
+      time: "8:15 PM",
+      matchup: "Canada vs. USA",
       rink: "Wings Arena",
       status: "Scheduled",
     },
     {
       id: "u16-11",
+      date: "Sunday, May 3rd",
+      time: "6:50 PM",
+      matchup: "USA vs. Netherlands",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-12",
+      date: "Sunday, May 3rd",
+      time: "8:15 PM",
+      matchup: "Finland vs. Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-13",
+      date: "Sunday, May 10th",
+      time: "6:50 PM",
+      matchup: "Canada vs. Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-14",
+      date: "Sunday, May 10th",
+      time: "8:15 PM",
+      matchup: "Netherlands vs. USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-15",
+      date: "Sunday, May 17th",
+      time: "6:50 PM",
+      matchup: "USA vs. Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-16",
+      date: "Sunday, May 17th",
+      time: "8:15 PM",
+      matchup: "Canada vs. Netherlands",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-17",
+      date: "Sunday, May 31st",
+      time: "6:50 PM",
+      matchup: "Netherlands vs. Finland",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-18",
+      date: "Sunday, May 31st",
+      time: "8:15 PM",
+      matchup: "USA vs. Canada",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-19",
       date: "Sunday, June 7th",
       time: "6:50 PM",
-      matchup: "USA vs Canada",
+      matchup: "Canada vs. USA",
+      rink: "Wings Arena",
+      status: "Scheduled",
+    },
+    {
+      id: "u16-20",
+      date: "Sunday, June 7th",
+      time: "8:15 PM",
+      matchup: "Finland vs. Netherlands",
       rink: "Wings Arena",
       status: "Scheduled",
     },
@@ -760,14 +934,23 @@ export default function App() {
   const CARD_OVERLAY = "bg-[#e51837]/85";
 
   const activeGames = useMemo(() => {
+    const now = new Date();
+
     return GAME_DATA[activeGroup].filter((game) => {
       const matchup = game.matchup?.trim().toLowerCase() ?? "";
 
-      return (
-        matchup !== "" &&
-        matchup !== "tbd" &&
-        matchup !== "4 vs 4 - all players bring light & dark jersey"
-      );
+      if (
+        matchup === "" ||
+        matchup === "tbd" ||
+        matchup === "4 vs 4 - all players bring light & dark jersey"
+      ) {
+        return false;
+      }
+
+      const gameDate = parseGameDateTime(game.date, game.time);
+      if (!gameDate) return true;
+
+      return gameDate >= now;
     });
   }, [activeGroup]);
 
@@ -857,7 +1040,6 @@ export default function App() {
             <div className="absolute inset-0 bg-[#1b3f97]/45 backdrop-blur-[3px]" />
 
             <div className="relative z-10">
-              {/* Tabs */}
               <div className="border-b border-white/15 px-3 sm:px-5 pt-3 sm:pt-4">
                 <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                   {AGE_GROUPS.map((group) => {
@@ -882,7 +1064,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Desktop table */}
               <div className="hidden md:block">
                 <div className="max-h-[560px] overflow-y-auto">
                   <table className="w-full border-collapse">
@@ -930,7 +1111,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Mobile cards */}
               <div className="md:hidden px-3 py-3">
                 <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
                   {activeGames.map((game) => (
@@ -1156,12 +1336,11 @@ export default function App() {
                 </h3>
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li>• 7:00 AM — Mites</li>
-                  <li>• 8:10 AM — Mites</li>
-                  <li>• 10:30 AM — Squirt</li>
-                  <li>• 2:40 PM — Peewee</li>
-                  <li>• 5:20 PM — Bantam</li>
-                  <li>• 6:50 PM — U16-18</li>
+                  <li>• 7:00 AM / 8:10 AM — Mites</li>
+                  <li>• 9:20 AM / 10:30 AM — Squirt</li>
+                  <li>• 1:30 PM / 2:40 PM — Peewee</li>
+                  <li>• 3:55 PM / 5:20 PM — Bantam</li>
+                  <li>• 6:50 PM / 8:15 PM — U16-18</li>
                 </ul>
               </div>
             </div>
