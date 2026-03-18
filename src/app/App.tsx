@@ -953,7 +953,7 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "squirt-r-33", team: "Sweden", firstName: "Leo", lastName: "McGlynn", isGoalie: true },
     { id: "squirt-r-34", team: "USA", firstName: "Logan", lastName: "Thorne", isGoalie: true },
     { id: "squirt-r-35", team: "USA", firstName: "Luke", lastName: "Ziegert Maron", isGoalie: true },
-    { id: "squirt-r-36", team: "Germany-NRLH", firstName: "", lastName: "Lokerson", isGoalie: true },
+    { id: "squirt-r-36", team: "Germany-NRLH", firstName: "Jokub", lastName: "Lokerson", isGoalie: true },
   ],
 
   Peewee: [
