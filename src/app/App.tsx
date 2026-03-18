@@ -22,6 +22,7 @@ import coachingIcon from "../assets/icons/icons8-coaching-100.png";
 import qrCode from "../assets/Registration_QR.png";
 
 type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
+type DetailView = "games" | "rosters";
 
 type GameRow = {
   id: string;
@@ -30,6 +31,14 @@ type GameRow = {
   matchup: string;
   rink: string;
   status: string;
+};
+
+type RosterPlayer = {
+  id: string;
+  team: string;
+  firstName: string;
+  lastName: string;
+  isGoalie?: boolean;
 };
 
 const AGE_GROUPS: AgeGroup[] = [
@@ -901,8 +910,181 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
   ],
 };
 
+const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
+  Mites: [],
+
+  Squirt: [
+    { id: "squirt-r-1", team: "Canada", firstName: "Edie", lastName: "Guzinski" },
+    { id: "squirt-r-2", team: "Canada", firstName: "Nate", lastName: "Serajeddini" },
+    { id: "squirt-r-3", team: "Canada", firstName: "Aleksei", lastName: "McCormack" },
+    { id: "squirt-r-4", team: "Canada", firstName: "Thomas", lastName: "McIntyre" },
+    { id: "squirt-r-5", team: "Canada", firstName: "JW", lastName: "Miller" },
+    { id: "squirt-r-6", team: "Canada", firstName: "Hatch", lastName: "Merrins" },
+    { id: "squirt-r-7", team: "Canada", firstName: "Julian", lastName: "Serowik" },
+    { id: "squirt-r-8", team: "Canada", firstName: "Callum", lastName: "Basham" },
+
+    { id: "squirt-r-9", team: "Sweden", firstName: "Jaxson", lastName: "Stover" },
+    { id: "squirt-r-10", team: "Sweden", firstName: "Archie", lastName: "Shepherd" },
+    { id: "squirt-r-11", team: "Sweden", firstName: "Katie", lastName: "Paretti" },
+    { id: "squirt-r-12", team: "Sweden", firstName: "Tasman", lastName: "Hutchinson" },
+    { id: "squirt-r-13", team: "Sweden", firstName: "Bryson", lastName: "Grabowski" },
+    { id: "squirt-r-14", team: "Sweden", firstName: "David", lastName: "Buzin" },
+    { id: "squirt-r-15", team: "Sweden", firstName: "Matthew", lastName: "Shannon" },
+    { id: "squirt-r-16", team: "Sweden", firstName: "Declan", lastName: "Shannon" },
+
+    { id: "squirt-r-17", team: "USA", firstName: "Gus", lastName: "Schwefel" },
+    { id: "squirt-r-18", team: "USA", firstName: "Sebastian", lastName: "Ebanks" },
+    { id: "squirt-r-19", team: "USA", firstName: "Scottlyn", lastName: "Miller" },
+    { id: "squirt-r-20", team: "USA", firstName: "Rye", lastName: "Robinson" },
+    { id: "squirt-r-21", team: "USA", firstName: "Graham", lastName: "Exum" },
+    { id: "squirt-r-22", team: "USA", firstName: "James", lastName: "McNamara" },
+    { id: "squirt-r-23", team: "USA", firstName: "Brody", lastName: "Neri" },
+    { id: "squirt-r-24", team: "USA", firstName: "Oliver", lastName: "Brown" },
+
+    { id: "squirt-r-25", team: "Germany-NRLH", firstName: "Maya", lastName: "Greenberg" },
+    { id: "squirt-r-26", team: "Germany-NRLH", firstName: "Julia", lastName: "Lungariello" },
+    { id: "squirt-r-27", team: "Germany-NRLH", firstName: "Udo", lastName: "Wilson-Njoku" },
+    { id: "squirt-r-28", team: "Germany-NRLH", firstName: "Ashley", lastName: "Martins" },
+    { id: "squirt-r-29", team: "Germany-NRLH", firstName: "Hank", lastName: "Hollander" },
+    { id: "squirt-r-30", team: "Germany-NRLH", firstName: "Liam", lastName: "Frusciante" },
+    { id: "squirt-r-31", team: "Germany-NRLH", firstName: "Sean", lastName: "Finnegan" },
+
+    { id: "squirt-r-32", team: "Canada", firstName: "Cameron", lastName: "Feeley", isGoalie: true },
+    { id: "squirt-r-33", team: "Sweden", firstName: "Leo", lastName: "McGlynn", isGoalie: true },
+    { id: "squirt-r-34", team: "USA", firstName: "Logan", lastName: "Thorne", isGoalie: true },
+    { id: "squirt-r-35", team: "USA", firstName: "Luke", lastName: "Ziegert Maron", isGoalie: true },
+    { id: "squirt-r-36", team: "Germany-NRLH", firstName: "Lokerson", lastName: "Squirt Goalie", isGoalie: true },
+  ],
+
+  Peewee: [
+    { id: "peewee-r-1", team: "Finland", firstName: "Bennett", lastName: "Cooper" },
+    { id: "peewee-r-2", team: "Finland", firstName: "Dylan", lastName: "Hendrick" },
+    { id: "peewee-r-3", team: "Finland", firstName: "West", lastName: "Mandes" },
+    { id: "peewee-r-4", team: "Finland", firstName: "RD", lastName: "McCormack" },
+    { id: "peewee-r-5", team: "Finland", firstName: "Coley", lastName: "Dalton" },
+    { id: "peewee-r-6", team: "Finland", firstName: "Harry", lastName: "Brown" },
+
+    { id: "peewee-r-7", team: "Netherlands", firstName: "Oliver", lastName: "Hunter" },
+    { id: "peewee-r-8", team: "Netherlands", firstName: "Alex", lastName: "Oberbeck" },
+    { id: "peewee-r-9", team: "Netherlands", firstName: "Kingsley", lastName: "Stagg" },
+    { id: "peewee-r-10", team: "Netherlands", firstName: "Reeve", lastName: "Saypol" },
+    { id: "peewee-r-11", team: "Netherlands", firstName: "Matthew", lastName: "Staffieri" },
+    { id: "peewee-r-12", team: "Netherlands", firstName: "Leo", lastName: "Tilton" },
+
+    { id: "peewee-r-13", team: "Sweden", firstName: "Maxwell", lastName: "Lim" },
+    { id: "peewee-r-14", team: "Sweden", firstName: "Hayes", lastName: "Kwasniewski" },
+    { id: "peewee-r-15", team: "Sweden", firstName: "Jude", lastName: "Cassidy" },
+    { id: "peewee-r-16", team: "Sweden", firstName: "Desi", lastName: "Criscuolo" },
+    { id: "peewee-r-17", team: "Sweden", firstName: "Theo", lastName: "Adams" },
+    { id: "peewee-r-18", team: "Sweden", firstName: "Maddie", lastName: "Schwefel" },
+    { id: "peewee-r-19", team: "Sweden", firstName: "Kristen", lastName: "Macleod" },
+
+    { id: "peewee-r-20", team: "Germany-NRLH", firstName: "Brendan", lastName: "Messar" },
+    { id: "peewee-r-21", team: "Germany-NRLH", firstName: "Jackson", lastName: "Morzan" },
+    { id: "peewee-r-22", team: "Germany-NRLH", firstName: "Calder", lastName: "Tortorella" },
+    { id: "peewee-r-23", team: "Germany-NRLH", firstName: "Qunitin", lastName: "Moreno" },
+    { id: "peewee-r-24", team: "Germany-NRLH", firstName: "Dylan", lastName: "Martins" },
+    { id: "peewee-r-25", team: "Germany-NRLH", firstName: "Kieran", lastName: "Farrelly" },
+    { id: "peewee-r-26", team: "Germany-NRLH", firstName: "Daniel", lastName: "Berger" },
+    { id: "peewee-r-27", team: "Germany-NRLH", firstName: "Estella", lastName: "Park" },
+
+    { id: "peewee-r-28", team: "Finland", firstName: "Luke", lastName: "DeMarco", isGoalie: true },
+    { id: "peewee-r-29", team: "Netherlands", firstName: "Michael", lastName: "Nyarady", isGoalie: true },
+    { id: "peewee-r-30", team: "Sweden", firstName: "Ryan", lastName: "Aleman", isGoalie: true },
+    { id: "peewee-r-31", team: "Germany-NRLH", firstName: "Matthew", lastName: "Filer", isGoalie: true },
+  ],
+
+  Bantam: [
+    { id: "bantam-r-1", team: "Canada", firstName: "Sienna", lastName: "Chodos" },
+    { id: "bantam-r-2", team: "Canada", firstName: "Will", lastName: "Dalton" },
+    { id: "bantam-r-3", team: "Canada", firstName: "Connor", lastName: "Greenstein" },
+    { id: "bantam-r-4", team: "Canada", firstName: "Theodore", lastName: "Sack" },
+    { id: "bantam-r-5", team: "Canada", firstName: "Olivia", lastName: "Laoun" },
+    { id: "bantam-r-6", team: "Canada", firstName: "Joe", lastName: "McCurdy" },
+    { id: "bantam-r-7", team: "Canada", firstName: "Edward", lastName: "Rizzo" },
+    { id: "bantam-r-8", team: "Canada", firstName: "Charlie", lastName: "Morin" },
+
+    { id: "bantam-r-9", team: "Sweden", firstName: "Thomas", lastName: "Miranowski" },
+    { id: "bantam-r-10", team: "Sweden", firstName: "Max", lastName: "Gordon" },
+    { id: "bantam-r-11", team: "Sweden", firstName: "Jason", lastName: "Vartuli" },
+    { id: "bantam-r-12", team: "Sweden", firstName: "Willet", lastName: "Carpenteri" },
+    { id: "bantam-r-13", team: "Sweden", firstName: "Quinn", lastName: "Kwasniewsk" },
+    { id: "bantam-r-14", team: "Sweden", firstName: "Angus", lastName: "Valentine" },
+    { id: "bantam-r-15", team: "Sweden", firstName: "Chole", lastName: "Gaggin" },
+    { id: "bantam-r-16", team: "Sweden", firstName: "Jack", lastName: "Vives" },
+
+    { id: "bantam-r-17", team: "Finland", firstName: "Hunter", lastName: "Ward" },
+    { id: "bantam-r-18", team: "Finland", firstName: "Luke", lastName: "Salib" },
+    { id: "bantam-r-19", team: "Finland", firstName: "Ryan", lastName: "Hellinger" },
+    { id: "bantam-r-20", team: "Finland", firstName: "Juliana", lastName: "Ebanks" },
+    { id: "bantam-r-21", team: "Finland", firstName: "Teddy", lastName: "Jordan" },
+    { id: "bantam-r-22", team: "Finland", firstName: "Reva", lastName: "Tilton" },
+    { id: "bantam-r-23", team: "Finland", firstName: "Bennett", lastName: "Van Dusen" },
+    { id: "bantam-r-24", team: "Finland", firstName: "Jordy", lastName: "Hellinger" },
+    { id: "bantam-r-25", team: "Finland", firstName: "Jake", lastName: "Schwefel" },
+
+    { id: "bantam-r-26", team: "Germany", firstName: "Mason", lastName: "Warwick" },
+    { id: "bantam-r-27", team: "Germany", firstName: "Dylan", lastName: "Zalis" },
+    { id: "bantam-r-28", team: "Germany", firstName: "Arthur", lastName: "Butcher" },
+    { id: "bantam-r-29", team: "Germany", firstName: "Dino", lastName: "Ibrahim" },
+    { id: "bantam-r-30", team: "Germany", firstName: "Charles", lastName: "Bittman" },
+    { id: "bantam-r-31", team: "Germany", firstName: "Ian", lastName: "Bishop" },
+    { id: "bantam-r-32", team: "Germany", firstName: "Max", lastName: "Magnant" },
+    { id: "bantam-r-33", team: "Germany", firstName: "Jaden", lastName: "Vazquez" },
+
+    { id: "bantam-r-34", team: "Canada", firstName: "Grace", lastName: "Garcia", isGoalie: true },
+    { id: "bantam-r-35", team: "Sweden", firstName: "Patrick", lastName: "Melton", isGoalie: true },
+    { id: "bantam-r-36", team: "Finland", firstName: "Anèleah", lastName: "Stahl", isGoalie: true },
+    { id: "bantam-r-37", team: "Germany", firstName: "Louis", lastName: "Thorne", isGoalie: true },
+    { id: "bantam-r-38", team: "Sweden", firstName: "Luke", lastName: "DeMarco", isGoalie: true },
+    { id: "bantam-r-39", team: "Germany", firstName: "Chase", lastName: "Hammock", isGoalie: true },
+  ],
+
+  "U16-18": [
+    { id: "u16-r-1", team: "USA", firstName: "Aidan", lastName: "Murray" },
+    { id: "u16-r-2", team: "USA", firstName: "Dylan", lastName: "Murray" },
+    { id: "u16-r-3", team: "USA", firstName: "Lucas", lastName: "Oliver" },
+    { id: "u16-r-4", team: "USA", firstName: "Cooper", lastName: "Auerswald" },
+    { id: "u16-r-5", team: "USA", firstName: "Jake", lastName: "McQuillan" },
+    { id: "u16-r-6", team: "USA", firstName: "Isaac", lastName: "Snedeker" },
+    { id: "u16-r-7", team: "USA", firstName: "Alexa", lastName: "Kwasniewski" },
+
+    { id: "u16-r-8", team: "Netherlands", firstName: "Sasha", lastName: "Miranowski" },
+    { id: "u16-r-9", team: "Netherlands", firstName: "Jackson", lastName: "Kronewitter" },
+    { id: "u16-r-10", team: "Netherlands", firstName: "Hailey", lastName: "Dreher" },
+    { id: "u16-r-11", team: "Netherlands", firstName: "Kiki", lastName: "Worden" },
+    { id: "u16-r-12", team: "Netherlands", firstName: "John", lastName: "Greifzu III" },
+    { id: "u16-r-13", team: "Netherlands", firstName: "Auggie", lastName: "Krueger" },
+    { id: "u16-r-14", team: "Netherlands", firstName: "Bo", lastName: "Carpenteri" },
+    { id: "u16-r-15", team: "Netherlands", firstName: "Langston", lastName: "Worth" },
+
+    { id: "u16-r-16", team: "Canada", firstName: "Andrew", lastName: "Salce" },
+    { id: "u16-r-17", team: "Canada", firstName: "Alex", lastName: "Lonergan" },
+    { id: "u16-r-18", team: "Canada", firstName: "Mack", lastName: "Grillo" },
+    { id: "u16-r-19", team: "Canada", firstName: "Colton", lastName: "Green" },
+    { id: "u16-r-20", team: "Canada", firstName: "Alexander", lastName: "Morin" },
+    { id: "u16-r-21", team: "Canada", firstName: "Quinn", lastName: "Murphy" },
+    { id: "u16-r-22", team: "Canada", firstName: "Henry", lastName: "Schwefel" },
+
+    { id: "u16-r-23", team: "Finland", firstName: "Andrew", lastName: "Erensen" },
+    { id: "u16-r-24", team: "Finland", firstName: "Ryan", lastName: "Mora" },
+    { id: "u16-r-25", team: "Finland", firstName: "Brendan", lastName: "OBrien" },
+    { id: "u16-r-26", team: "Finland", firstName: "James", lastName: "Orrico" },
+    { id: "u16-r-27", team: "Finland", firstName: "Zach", lastName: "Tuers" },
+    { id: "u16-r-28", team: "Finland", firstName: "Luke", lastName: "Vartuli" },
+    { id: "u16-r-29", team: "Finland", firstName: "Lachlan", lastName: "Wlech" },
+
+    { id: "u16-r-30", team: "Canada", firstName: "Tiago", lastName: "Da Silva", isGoalie: true },
+    { id: "u16-r-31", team: "Netherlands", firstName: "Bill", lastName: "Salib", isGoalie: true },
+    { id: "u16-r-32", team: "Finland", firstName: "Henry", lastName: "Levin", isGoalie: true },
+    { id: "u16-r-33", team: "USA", firstName: "Liam", lastName: "Feinstein", isGoalie: true },
+    { id: "u16-r-34", team: "USA", firstName: "Graham", lastName: "Speck", isGoalie: true },
+  ],
+};
+
 export default function App() {
   const [activeGroup, setActiveGroup] = useState<AgeGroup>("Mites");
+  const [detailView, setDetailView] = useState<DetailView>("games");
 
   const heroImages = [
     { url: heroImage3, alt: "Wings Arena seating area" },
@@ -935,6 +1117,21 @@ export default function App() {
       return gameDate >= now;
     });
   }, [activeGroup]);
+
+  const rosterGroups = useMemo(() => {
+    const players = ROSTER_DATA[activeGroup] ?? [];
+    const grouped = players.reduce<Record<string, RosterPlayer[]>>((acc, player) => {
+      if (!acc[player.team]) acc[player.team] = [];
+      acc[player.team].push(player);
+      return acc;
+    }, {});
+
+    return Object.entries(grouped).sort(([teamA], [teamB]) =>
+      teamA.localeCompare(teamB)
+    );
+  }, [activeGroup]);
+
+  const hasRoster = ROSTER_DATA[activeGroup].length > 0;
 
   return (
     <div className={`min-h-screen ${PAGE_BG} flex flex-col sm:block`}>
@@ -1002,16 +1199,16 @@ export default function App() {
         </div>
       </section>
 
-      {/* Upcoming Games Section */}
+      {/* Upcoming Games / Rosters Section */}
       <section className={`${PAGE_BG} py-8 sm:py-10`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
           <div className="text-center mb-5">
             <h2 className="text-[1.65rem] sm:text-[2.2rem] text-white">
-              Upcoming / League Schedule
+              League Schedule &amp; Rosters
             </h2>
             <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
             <p className="text-gray-200 text-sm sm:text-base">
-              Select an age group to view that division’s upcoming games.
+              Select an age group, then switch between upcoming games and team rosters.
             </p>
           </div>
 
@@ -1022,6 +1219,7 @@ export default function App() {
             <div className="absolute inset-0 bg-[#1b3f97]/45 backdrop-blur-[3px]" />
 
             <div className="relative z-10">
+              {/* Age tabs */}
               <div className="border-b border-white/15 px-3 sm:px-5 pt-3 sm:pt-4">
                 <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                   {AGE_GROUPS.map((group) => {
@@ -1046,98 +1244,211 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="hidden md:block">
-                <div className="max-h-[560px] overflow-y-auto">
-                  <table className="w-full border-collapse">
-                    <thead className="sticky top-0 z-20">
-                      <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
-                        <th className="px-5 py-4 text-left font-bold">Date</th>
-                        <th className="px-5 py-4 text-left font-bold">Time</th>
-                        <th className="px-5 py-4 text-left font-bold">Matchup</th>
-                        <th className="px-5 py-4 text-left font-bold">Rink</th>
-                        <th className="px-5 py-4 text-left font-bold">Status</th>
-                      </tr>
-                    </thead>
+              {/* View toggle */}
+              <div className="px-3 sm:px-5 py-3 border-b border-white/15">
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setDetailView("games")}
+                    className={[
+                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                      detailView === "games"
+                        ? "bg-white text-[#0f3c72] border-white"
+                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                    ].join(" ")}
+                  >
+                    View Games
+                  </button>
 
-                    <tbody>
-                      {activeGames.map((game, index) => (
-                        <tr
-                          key={game.id}
-                          className={
-                            index % 2 === 0
-                              ? "bg-white/10 text-white"
-                              : "bg-[#0d2f5a]/55 text-white"
-                          }
-                        >
-                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                            {game.date}
-                          </td>
-                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
-                            {game.time}
-                          </td>
-                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
-                            {game.matchup}
-                          </td>
-                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                            {game.rink}
-                          </td>
-                          <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
-                              {game.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <button
+                    type="button"
+                    onClick={() => setDetailView("rosters")}
+                    className={[
+                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                      detailView === "rosters"
+                        ? "bg-white text-[#0f3c72] border-white"
+                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                    ].join(" ")}
+                  >
+                    View Rosters
+                  </button>
                 </div>
               </div>
 
-              <div className="md:hidden px-3 py-3">
-                <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
-                  {activeGames.map((game) => (
-                    <div
-                      key={game.id}
-                      className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
-                    >
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div>
-                          <p className="text-[15px] font-semibold leading-snug">
-                            {game.matchup}
-                          </p>
-                          <p className="text-[13px] text-[#d6edf1] mt-1">
-                            {game.date}
-                          </p>
-                        </div>
+              {/* Games view */}
+              {detailView === "games" && (
+                <>
+                  <div className="hidden md:block">
+                    <div className="max-h-[560px] overflow-y-auto">
+                      <table className="w-full border-collapse">
+                        <thead className="sticky top-0 z-20">
+                          <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
+                            <th className="px-5 py-4 text-left font-bold">Date</th>
+                            <th className="px-5 py-4 text-left font-bold">Time</th>
+                            <th className="px-5 py-4 text-left font-bold">Matchup</th>
+                            <th className="px-5 py-4 text-left font-bold">Rink</th>
+                            <th className="px-5 py-4 text-left font-bold">Status</th>
+                          </tr>
+                        </thead>
 
-                        <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
-                          {game.status}
-                        </span>
-                      </div>
+                        <tbody>
+                          {activeGames.length > 0 ? (
+                            activeGames.map((game, index) => (
+                              <tr
+                                key={game.id}
+                                className={
+                                  index % 2 === 0
+                                    ? "bg-white/10 text-white"
+                                    : "bg-[#0d2f5a]/55 text-white"
+                                }
+                              >
+                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                  {game.date}
+                                </td>
+                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
+                                  {game.time}
+                                </td>
+                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                                  {game.matchup}
+                                </td>
+                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                  {game.rink}
+                                </td>
+                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                  <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
+                                    {game.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr className="bg-white/10 text-white">
+                              <td colSpan={5} className="px-5 py-10 text-center">
+                                No upcoming games to display for {activeGroup}.
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                      <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
-                        <div className="rounded-xl bg-white/10 px-3 py-2">
-                          <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                            Time
-                          </p>
-                          <p className="font-medium">{game.time}</p>
-                        </div>
+                  <div className="md:hidden px-3 py-3">
+                    <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
+                      {activeGames.length > 0 ? (
+                        activeGames.map((game) => (
+                          <div
+                            key={game.id}
+                            className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                          >
+                            <div className="flex items-start justify-between gap-3 mb-3">
+                              <div>
+                                <p className="text-[15px] font-semibold leading-snug">
+                                  {game.matchup}
+                                </p>
+                                <p className="text-[13px] text-[#d6edf1] mt-1">
+                                  {game.date}
+                                </p>
+                              </div>
 
-                        <div className="rounded-xl bg-white/10 px-3 py-2">
-                          <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                            Rink
-                          </p>
-                          <p className="font-medium">{game.rink}</p>
+                              <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
+                                {game.status}
+                              </span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
+                              <div className="rounded-xl bg-white/10 px-3 py-2">
+                                <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                  Time
+                                </p>
+                                <p className="font-medium">{game.time}</p>
+                              </div>
+
+                              <div className="rounded-xl bg-white/10 px-3 py-2">
+                                <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                  Rink
+                                </p>
+                                <p className="font-medium">{game.rink}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-center text-white">
+                          No upcoming games to display for {activeGroup}.
                         </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Rosters view */}
+              {detailView === "rosters" && (
+                <div className="px-3 sm:px-5 py-4 sm:py-5">
+                  {hasRoster ? (
+                    <div className="max-h-[640px] overflow-y-auto pr-1">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {rosterGroups.map(([team, players]) => (
+                          <div
+                            key={team}
+                            className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px] overflow-hidden"
+                          >
+                            <div className="border-b border-white/15 px-4 py-3 bg-[#0f3c72]/55">
+                              <div className="flex items-center justify-between gap-3">
+                                <h3 className="text-white text-[1rem] sm:text-[1.1rem] font-semibold">
+                                  {team}
+                                </h3>
+                                <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] sm:text-[12px] text-white">
+                                  {players.length} Player{players.length === 1 ? "" : "s"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="px-4 py-3">
+                              <div className="space-y-2">
+                                {players.map((player, index) => (
+                                  <div
+                                    key={player.id}
+                                    className={[
+                                      "flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-white",
+                                      index % 2 === 0 ? "bg-white/8" : "bg-white/4",
+                                    ].join(" ")}
+                                  >
+                                    <div className="min-w-0">
+                                      <p className="font-medium leading-tight">
+                                        {player.firstName} {player.lastName}
+                                      </p>
+                                    </div>
+
+                                    {player.isGoalie && (
+                                      <span className="shrink-0 rounded-full border border-[#b2dbd7]/40 bg-[#b2dbd7]/15 px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold text-[#e7fbff]">
+                                        Goalie
+                                      </span>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  ) : (
+                    <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
+                      <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
+                        {activeGroup} roster will be posted soon!
+                      </h3>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
 
               <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
                 Viewing:{" "}
-                <span className="font-semibold text-white">{activeGroup}</span>
+                <span className="font-semibold text-white">
+                  {activeGroup} {detailView === "games" ? "Games" : "Rosters"}
+                </span>
               </div>
             </div>
           </div>
