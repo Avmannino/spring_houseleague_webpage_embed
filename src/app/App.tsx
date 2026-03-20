@@ -1015,13 +1015,12 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "u16-r-16", team: "Canada", firstName: "Andrew", lastName: "Salce" },
     { id: "u16-r-17", team: "Canada", firstName: "Alex", lastName: "Lonergan" },
     { id: "u16-r-18", team: "Canada", firstName: "Mack", lastName: "Grillo" },
-    
     { id: "u16-r-19", team: "Canada", firstName: "Alexander", lastName: "Morin" },
     { id: "u16-r-20", team: "Canada", firstName: "Quinn", lastName: "Murphy" },
     { id: "u16-r-21", team: "Canada", firstName: "Henry", lastName: "Schwefel" },
     { id: "u16-r-22", team: "Canada", firstName: "Will", lastName: "Staffieri" },
     { id: "u16-r-23", team: "Canada", firstName: "Bo", lastName: "Carpenteri" },
-    { id: "u16-r-24", team: "Canada", firstName: "Lachlan", lastName: "Wlech" },
+    { id: "u16-r-24", team: "Canada", firstName: "Lachlan", lastName: "Welch" },
 
     { id: "u16-r-25", team: "Finland", firstName: "Andrew", lastName: "Erensen" },
     { id: "u16-r-26", team: "Finland", firstName: "Ryan", lastName: "Mora" },
@@ -1030,6 +1029,7 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "u16-r-29", team: "Finland", firstName: "Zach", lastName: "Tuers" },
     { id: "u16-r-30", team: "Finland", firstName: "Luke", lastName: "Vartuli" },
     { id: "u16-r-31", team: "Finland", firstName: "Colton", lastName: "Green" },
+    { id: "u16-r-32", team: "Finland", firstName: "Thomas", lastName: "Lomasney" },
 
     { id: "u16-r-32", team: "Canada", firstName: "Tiago", lastName: "Da Silva", isGoalie: true },
     { id: "u16-r-33", team: "Netherlands", firstName: "Bill", lastName: "Salib", isGoalie: true },
