@@ -22,7 +22,7 @@ import coachingIcon from "../assets/icons/icons8-coaching-100.png";
 import qrCode from "../assets/Registration_QR.png";
 
 type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
-type DetailView = "games" | "rosters";
+type DetailView = "games" | "standings" | "rosters";
 
 type GameRow = {
   id: string;
@@ -41,6 +41,15 @@ type RosterPlayer = {
   isGoalie?: boolean;
 };
 
+
+type StandingsRow = {
+  team: string;
+  wins: number;
+  losses: number;
+  ties: number;
+};
+
+
 const AGE_GROUPS: AgeGroup[] = [
   "Mites",
   "Squirt",
@@ -49,7 +58,44 @@ const AGE_GROUPS: AgeGroup[] = [
   "U16-18",
 ];
 
+const STANDINGS_DATA: Record<AgeGroup, StandingsRow[]> = {
+  Mites: [
+    { team: "USA", wins: 1, losses: 0, ties: 0 },
+    { team: "Germany-NRLH", wins: 0, losses: 1, ties: 0 },
+  ],
+  Squirt: [
+    { team: "Germany", wins: 0, losses: 1, ties: 0 },
+    { team: "Canada", wins: 1, losses: 0, ties: 0 },
+    { team: "Sweden", wins: 1, losses: 0, ties: 0 },
+    { team: "USA", wins: 0, losses: 1, ties: 0 },
+  ],
+  Peewee: [
+    { team: "Germany", wins: 0, losses: 1, ties: 0 },
+    { team: "Netherlands", wins: 1, losses: 0, ties: 0 },
+    { team: "Sweden", wins: 0, losses: 1, ties: 0 },
+    { team: "Finland", wins: 1, losses: 0, ties: 0 },
+  ],
+  Bantam: [
+    { team: "Germany", wins: 0, losses: 1, ties: 0 },
+    { team: "Canada", wins: 0, losses: 0, ties: 1 },
+    { team: "Sweden", wins: 0, losses: 0, ties: 1 },
+    { team: "Finland", wins: 1, losses: 0, ties: 0 },
+  ],
+  "U16-18": [
+    { team: "Canada", wins: 0, losses: 1, ties: 0 },
+    { team: "Netherlands", wins: 1, losses: 0, ties: 0 },
+    { team: "USA", wins: 1, losses: 0, ties: 0 },
+    { team: "Finland", wins: 0, losses: 1, ties: 0 },
+  ],
+};
+
 const LEAGUE_YEAR = 2026;
+
+function getWinPercentage(row: StandingsRow): number {
+  const gamesPlayed = row.wins + row.losses + row.ties;
+  if (gamesPlayed === 0) return 0;
+  return (row.wins + row.ties * 0.5) / gamesPlayed;
+}
 
 const MONTH_MAP: Record<string, number> = {
   january: 0,
@@ -1053,7 +1099,6 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
 export default function App() {
   const [activeGroup, setActiveGroup] = useState<AgeGroup>("Mites");
   const [detailView, setDetailView] = useState<DetailView>("games");
-
   const heroImages = [
     { url: heroImage3, alt: "Wings Arena seating area" },
     { url: heroImage1, alt: "Wings Arena ice rink facility" },
@@ -1083,6 +1128,19 @@ export default function App() {
       if (!gameDate) return true;
 
       return gameDate >= now;
+    });
+  }, [activeGroup]);
+
+  const activeStandings = useMemo(() => {
+    return [...(STANDINGS_DATA[activeGroup] ?? [])].sort((a, b) => {
+      const winPctDiff = getWinPercentage(b) - getWinPercentage(a);
+      if (winPctDiff !== 0) return winPctDiff;
+
+      if (b.wins !== a.wins) return b.wins - a.wins;
+      if (a.losses !== b.losses) return a.losses - b.losses;
+      if (b.ties !== a.ties) return b.ties - a.ties;
+
+      return a.team.localeCompare(b.team);
     });
   }, [activeGroup]);
 
@@ -1176,7 +1234,7 @@ export default function App() {
             </h2>
             <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
             <p className="text-gray-200 text-sm sm:text-base">
-              Select an age group, then switch between upcoming games and team rosters.
+              Select an age group, then switch between upcoming games, standings, and team rosters.
             </p>
           </div>
 
@@ -1226,6 +1284,19 @@ export default function App() {
                     ].join(" ")}
                   >
                     View Games
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setDetailView("standings")}
+                    className={[
+                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                      detailView === "standings"
+                        ? "bg-white text-[#0f3c72] border-white"
+                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                    ].join(" ")}
+                  >
+                    View Standings
                   </button>
 
                   <button
@@ -1339,6 +1410,7 @@ export default function App() {
                                 <p className="font-medium">{game.rink}</p>
                               </div>
                             </div>
+
                           </div>
                         ))
                       ) : (
@@ -1349,6 +1421,101 @@ export default function App() {
                     </div>
                   </div>
                 </>
+              )}
+
+              {/* Standings view */}
+              {detailView === "standings" && (
+                <div className="px-3 sm:px-5 py-4 sm:py-5">
+                  {activeStandings.length > 0 ? (
+                    <>
+                      <div className="hidden md:block">
+                        <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px]">
+                          <table className="w-full border-collapse">
+                            <thead>
+                              <tr className="bg-[#0f3c72]/75 text-white uppercase tracking-[0.06em] text-sm">
+                                <th className="px-5 py-4 text-left font-bold">Division-{activeGroup}-Teams</th>
+                                <th className="px-5 py-4 text-center font-bold">Wins</th>
+                                <th className="px-5 py-4 text-center font-bold">Losses</th>
+                                <th className="px-5 py-4 text-center font-bold">Ties</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {activeStandings.map((row, index) => (
+                                <tr
+                                  key={`${activeGroup}-${row.team}`}
+                                  className={
+                                    index % 2 === 0
+                                      ? "bg-white/10 text-white"
+                                      : "bg-[#0d2f5a]/55 text-white"
+                                  }
+                                >
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                                    {row.team}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                    {row.wins}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                    {row.losses}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                    {row.ties}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div className="md:hidden">
+                        <div className="space-y-3">
+                          <div className="rounded-2xl border border-white/15 bg-[#0f3c72]/70 px-4 py-3 text-center text-white">
+                            <p className="text-[1rem] font-semibold">Division-{activeGroup}-Teams</p>
+                          </div>
+
+                          {activeStandings.map((row) => (
+                            <div
+                              key={`${activeGroup}-${row.team}`}
+                              className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                            >
+                              <div className="flex items-center justify-between gap-3 mb-3">
+                                <h3 className="text-[15px] font-semibold leading-snug">{row.team}</h3>
+                                <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white">
+                                  {row.wins}W-{row.losses}L-{row.ties}T
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-3 gap-2 text-center">
+                                <div className="rounded-xl bg-white/10 px-3 py-2">
+                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Wins</p>
+                                  <p className="font-medium text-[15px]">{row.wins}</p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/10 px-3 py-2">
+                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Losses</p>
+                                  <p className="font-medium text-[15px]">{row.losses}</p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/10 px-3 py-2">
+                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Ties</p>
+                                  <p className="font-medium text-[15px]">{row.ties}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
+                      <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
+                        {activeGroup} standings will be posted soon!
+                      </h3>
+                    </div>
+                  )}
+                </div>
               )}
 
               {/* Rosters view */}
@@ -1412,10 +1579,12 @@ export default function App() {
                 </div>
               )}
 
+
+
               <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
                 Viewing:{" "}
                 <span className="font-semibold text-white">
-                  {activeGroup} {detailView === "games" ? "Games" : "Rosters"}
+                  {activeGroup} {detailView === "games" ? "Games" : detailView === "standings" ? "Standings" : "Rosters"}
                 </span>
               </div>
             </div>
