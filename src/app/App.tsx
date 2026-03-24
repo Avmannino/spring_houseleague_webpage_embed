@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-
+import { RsvpFeature } from "./components/RsvpFeature";
 import logo from "../assets/wingslogo.png";
 import heroImage1 from "../assets/hero/hero-1.jpg";
 import heroImage2 from "../assets/hero/hero-2.jpg";
@@ -49,7 +49,6 @@ type StandingsRow = {
   ties: number;
 };
 
-
 const AGE_GROUPS: AgeGroup[] = [
   "Mites",
   "Squirt",
@@ -57,6 +56,8 @@ const AGE_GROUPS: AgeGroup[] = [
   "Bantam",
   "U16-18",
 ];
+
+const LEAGUE_YEAR = 2026;
 
 const STANDINGS_DATA: Record<AgeGroup, StandingsRow[]> = {
   Mites: [
@@ -88,8 +89,6 @@ const STANDINGS_DATA: Record<AgeGroup, StandingsRow[]> = {
     { team: "Finland", wins: 0, losses: 1, ties: 0 },
   ],
 };
-
-const LEAGUE_YEAR = 2026;
 
 function getWinPercentage(row: StandingsRow): number {
   const gamesPlayed = row.wins + row.losses + row.ties;
@@ -1099,6 +1098,8 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
 export default function App() {
   const [activeGroup, setActiveGroup] = useState<AgeGroup>("Mites");
   const [detailView, setDetailView] = useState<DetailView>("games");
+  const ENABLE_RSVP = false;
+
   const heroImages = [
     { url: heroImage3, alt: "Wings Arena seating area" },
     { url: heroImage1, alt: "Wings Arena ice rink facility" },
@@ -1315,113 +1316,119 @@ export default function App() {
               </div>
 
               {/* Games view */}
-              {detailView === "games" && (
-                <>
-                  <div className="hidden md:block">
-                    <div className="max-h-[560px] overflow-y-auto">
-                      <table className="w-full border-collapse">
-                        <thead className="sticky top-0 z-20">
-                          <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
-                            <th className="px-5 py-4 text-left font-bold">Date</th>
-                            <th className="px-5 py-4 text-left font-bold">Time</th>
-                            <th className="px-5 py-4 text-left font-bold">Matchup</th>
-                            <th className="px-5 py-4 text-left font-bold">Rink</th>
-                            <th className="px-5 py-4 text-left font-bold">Status</th>
-                          </tr>
-                        </thead>
+              {detailView === "games" &&
+                (ENABLE_RSVP ? (
+                  <RsvpFeature
+                    activeGroup={activeGroup}
+                    activeGames={activeGames}
+                    activePlayers={ROSTER_DATA[activeGroup] ?? []}
+                  />
+                ) : (
+                  <>
+                    <div className="hidden md:block">
+                      <div className="max-h-[560px] overflow-y-auto">
+                        <table className="w-full border-collapse">
+                          <thead className="sticky top-0 z-20">
+                            <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
+                              <th className="px-5 py-4 text-left font-bold">Date</th>
+                              <th className="px-5 py-4 text-left font-bold">Time</th>
+                              <th className="px-5 py-4 text-left font-bold">Matchup</th>
+                              <th className="px-5 py-4 text-left font-bold">Rink</th>
+                              <th className="px-5 py-4 text-left font-bold">Status</th>
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          {activeGames.length > 0 ? (
-                            activeGames.map((game, index) => (
-                              <tr
-                                key={game.id}
-                                className={
-                                  index % 2 === 0
-                                    ? "bg-white/10 text-white"
-                                    : "bg-[#0d2f5a]/55 text-white"
-                                }
-                              >
-                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                  {game.date}
-                                </td>
-                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
-                                  {game.time}
-                                </td>
-                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
-                                  {game.matchup}
-                                </td>
-                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                  {game.rink}
-                                </td>
-                                <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                  <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
-                                    {game.status}
-                                  </span>
+                          <tbody>
+                            {activeGames.length > 0 ? (
+                              activeGames.map((game, index) => (
+                                <tr
+                                  key={game.id}
+                                  className={
+                                    index % 2 === 0
+                                      ? "bg-white/10 text-white"
+                                      : "bg-[#0d2f5a]/55 text-white"
+                                  }
+                                >
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                    {game.date}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
+                                    {game.time}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                                    {game.matchup}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                    {game.rink}
+                                  </td>
+                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                    <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
+                                      {game.status}
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr className="bg-white/10 text-white">
+                                <td colSpan={5} className="px-5 py-10 text-center">
+                                  No upcoming games to display for {activeGroup}.
                                 </td>
                               </tr>
-                            ))
-                          ) : (
-                            <tr className="bg-white/10 text-white">
-                              <td colSpan={5} className="px-5 py-10 text-center">
-                                No upcoming games to display for {activeGroup}.
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="md:hidden px-3 py-3">
-                    <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
-                      {activeGames.length > 0 ? (
-                        activeGames.map((game) => (
-                          <div
-                            key={game.id}
-                            className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
-                          >
-                            <div className="flex items-start justify-between gap-3 mb-3">
-                              <div>
-                                <p className="text-[15px] font-semibold leading-snug">
-                                  {game.matchup}
-                                </p>
-                                <p className="text-[13px] text-[#d6edf1] mt-1">
-                                  {game.date}
-                                </p>
+                    <div className="md:hidden px-3 py-3">
+                      <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
+                        {activeGames.length > 0 ? (
+                          activeGames.map((game) => (
+                            <div
+                              key={game.id}
+                              className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                            >
+                              <div className="flex items-start justify-between gap-3 mb-3">
+                                <div>
+                                  <p className="text-[15px] font-semibold leading-snug">
+                                    {game.matchup}
+                                  </p>
+                                  <p className="text-[13px] text-[#d6edf1] mt-1">
+                                    {game.date}
+                                  </p>
+                                </div>
+
+                                <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
+                                  {game.status}
+                                </span>
                               </div>
 
-                              <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
-                                {game.status}
-                              </span>
+                              <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
+                                <div className="rounded-xl bg-white/10 px-3 py-2">
+                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                    Time
+                                  </p>
+                                  <p className="font-medium">{game.time}</p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/10 px-3 py-2">
+                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                    Rink
+                                  </p>
+                                  <p className="font-medium">{game.rink}</p>
+                                </div>
+                              </div>
                             </div>
-
-                            <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
-                              <div className="rounded-xl bg-white/10 px-3 py-2">
-                                <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                                  Time
-                                </p>
-                                <p className="font-medium">{game.time}</p>
-                              </div>
-
-                              <div className="rounded-xl bg-white/10 px-3 py-2">
-                                <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                                  Rink
-                                </p>
-                                <p className="font-medium">{game.rink}</p>
-                              </div>
-                            </div>
-
+                          ))
+                        ) : (
+                          <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-center text-white">
+                            No upcoming games to display for {activeGroup}.
                           </div>
-                        ))
-                      ) : (
-                        <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-center text-white">
-                          No upcoming games to display for {activeGroup}.
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                ))}
 
               {/* Standings view */}
               {detailView === "standings" && (
@@ -1578,8 +1585,6 @@ export default function App() {
                   )}
                 </div>
               )}
-
-
 
               <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
                 Viewing:{" "}
