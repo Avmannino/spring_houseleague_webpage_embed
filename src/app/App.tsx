@@ -1098,7 +1098,7 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
 export default function App() {
   const [activeGroup, setActiveGroup] = useState<AgeGroup>("Mites");
   const [detailView, setDetailView] = useState<DetailView>("games");
-  const ENABLE_RSVP = false;
+  const ENABLE_RSVP = true;
 
   const heroImages = [
     { url: heroImage3, alt: "Wings Arena seating area" },

@@ -60,8 +60,8 @@ function normalizeTeamKey(team: string): string {
   const compact = team.toLowerCase().replace(/[^a-z0-9]/g, "");
 
   if (compact.includes("germany") && compact.includes("nrlh")) return "germany-nrlh";
-  if (compact.includes("germany") && compact.includes("nrlighting")) return "germany-nr-lighting";
-  if (compact === "germany") return "germany";
+  if (compact.includes("germany") && compact.includes("nrlighting")) return "germany-nrlh";
+  if (compact.includes("germany")) return "germany-nrlh";
   if (compact === "usa") return "usa";
   if (compact === "canada") return "canada";
   if (compact === "sweden") return "sweden";
@@ -71,30 +71,6 @@ function normalizeTeamKey(team: string): string {
   return compact;
 }
 
-function getDisplayTeamName(team: string): string {
-  const key = normalizeTeamKey(team);
-
-  switch (key) {
-    case "germany-nrlh":
-      return "Germany (NRLH)";
-    case "germany-nr-lighting":
-      return "Germany (NR Lighting)";
-    case "germany":
-      return "Germany";
-    case "usa":
-      return "USA";
-    case "canada":
-      return "Canada";
-    case "sweden":
-      return "Sweden";
-    case "finland":
-      return "Finland";
-    case "netherlands":
-      return "Netherlands";
-    default:
-      return team;
-  }
-}
 
 function extractTeamsFromMatchup(matchup: string): string[] {
   const normalized = matchup
@@ -119,7 +95,7 @@ function getPlayersForMatchup(players: RosterPlayer[], matchup: string): Matchup
       );
 
       return {
-        team: getDisplayTeamName(matchupTeam),
+        team: matchupTeam,
         players: [...matchedPlayers].sort((a, b) => {
           if (Boolean(b.isGoalie) !== Boolean(a.isGoalie)) {
             return Number(b.isGoalie) - Number(a.isGoalie);
@@ -424,7 +400,7 @@ export function RsvpFeature({
             className="relative w-full max-w-6xl overflow-hidden rounded-[24px] border border-white/15 bg-[#102e63] shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="border-b border-white/10 bg-[#0f2a59] px-4 py-4 sm:px-6">
+            <div className="relative border-b border-white/10 bg-[#0f2a59] px-4 py-4 sm:px-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#b2dbd7]">
@@ -441,12 +417,15 @@ export function RsvpFeature({
                 <button
                   type="button"
                   onClick={() => setSelectedGame(null)}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl text-white transition hover:bg-white/15"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl text-white transition hover:bg-white/15"
                   aria-label="Close RSVP modal"
                 >
                   ×
                 </button>
               </div>
+              <p className="mt-3 text-left text-[13px] text-[#b2dbd7] italic whitespace-nowrap sm:absolute sm:mt-0 sm:bottom-4 sm:right-6 sm:text-right">
+                Please Note: Your RSVP is encouraged, but not required
+              </p>
             </div>
 
             <div className="max-h-[75vh] overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
