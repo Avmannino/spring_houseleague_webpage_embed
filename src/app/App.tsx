@@ -1187,7 +1187,7 @@ export default function App() {
                   alt="Wings Arena"
                   className="w-[100px] mt-[-40px] mb-2"
                 />
-                <h1 className="text-4xl text-white text-center">
+                <h1 className="text-[2.0rem] sm:text-4xl text-white text-center">
                   In-House Spring League
                 </h1>
 
