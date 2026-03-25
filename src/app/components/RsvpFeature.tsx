@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
@@ -152,6 +152,7 @@ export function RsvpFeature({
 }: RsvpFeatureProps) {
   const [selectedGame, setSelectedGame] = useState<GameRow | null>(null);
   const [attendance, setAttendance] = useState<AttendanceMap>({});
+  const hasLoaded = useRef(false);
 
   useEffect(() => {
     try {
@@ -162,9 +163,11 @@ export function RsvpFeature({
     } catch (error) {
       console.error("Failed to load RSVP attendance:", error);
     }
+    hasLoaded.current = true;
   }, []);
 
   useEffect(() => {
+    if (!hasLoaded.current) return;
     try {
       window.localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(attendance));
     } catch (error) {
