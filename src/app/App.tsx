@@ -1181,29 +1181,29 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-5 xl:px-0 py-12">
           <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-8 lg:gap-x-[162px] items-center">
             <div className="lg:-ml-[60px] min-[1001px]:max-[1325px]:ml-0 min-[1001px]:max-[1325px]:pr-5">
-              <div className="flex flex-col items-center lg:items-center mb-6">
+              <div className="flex flex-col items-center mb-6">
                 <img
                   src={logo}
                   alt="Wings Arena"
-                  className="w-[100px] mt-[-40px] mb-2 ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
+                  className="w-[100px] mt-[-40px] mb-2"
                 />
-                <h1 className="text-4xl lg:text-4xl text-white text-center lg:text-center min-[1001px]:max-[1325px]:pl-[28px]">
+                <h1 className="text-4xl text-white text-center">
                   In-House Spring League
                 </h1>
 
-                <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center min-[1001px]:max-[1325px]:pl-[28px]">
+                <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center">
                   2026 Season
                 </p>
 
                 <div className="mt-[15px] -mb-[10px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
               </div>
 
-              <div className="text-gray-200 mb-4 ml-1 space-y-5 lg:text-center min-[1001px]:max-[1325px]:ml-[28px] text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
+              <div className="text-gray-200 mb-4 space-y-5 text-center text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
                 <p className="font-semibold text-gray-200">
                   A recreational league for travel team players.
                 </p>
 
-                <p className="whitespace-nowrap">
+                <p>
                   In-house teams with a focus on <strong>development</strong> and{" "}
                   <strong>game play</strong>. Non-checking league.
                 </p>
