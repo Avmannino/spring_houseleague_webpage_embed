@@ -1185,14 +1185,14 @@ export default function App() {
                 <img
                   src={logo}
                   alt="Wings Arena"
-                  className="w-[65.04px] mt-[-40px] mb-2 ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
+                  className="w-[100px] mt-[-40px] mb-2 ml-2 mr-3 lg:ml-[10px] min-[1001px]:max-[1325px]:ml-[28px]"
                 />
                 <h1 className="text-4xl lg:text-4xl text-white text-center lg:text-center min-[1001px]:max-[1325px]:pl-[28px]">
-                  2026 In-House Spring League
+                  In-House Spring League
                 </h1>
 
                 <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center min-[1001px]:max-[1325px]:pl-[28px]">
-                  Starting Friday, March 13th
+                  2026 Season
                 </p>
 
                 <div className="mt-[15px] -mb-[10px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
@@ -1203,7 +1203,7 @@ export default function App() {
                   A recreational league for travel team players.
                 </p>
 
-                <p>
+                <p className="whitespace-nowrap">
                   In-house teams with a focus on <strong>development</strong> and{" "}
                   <strong>game play</strong>. Non-checking league.
                 </p>
@@ -1756,8 +1756,8 @@ export default function App() {
           <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
           <div className="relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
-              <div className="pt-8 sm:pt-20">
-                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 -mt-[40px] text-center">
+              <div>
+                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 text-center">
                   Friday Practice Schedule
                 </h3>
 
