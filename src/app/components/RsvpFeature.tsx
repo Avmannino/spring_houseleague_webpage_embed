@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
 
@@ -391,7 +392,7 @@ export function RsvpFeature({
         </div>
       </div>
 
-      {selectedGame && (
+      {selectedGame && createPortal(
         <div
           className="fixed inset-0 z-[120] flex items-center justify-center bg-black/65 px-3 py-4 sm:px-5"
           onClick={() => setSelectedGame(null)}
@@ -540,7 +541,7 @@ export function RsvpFeature({
             </div>
           </div>
         </div>
-      )}
+      , document.body)}
     </>
   );
 }
