@@ -394,7 +394,7 @@ export function RsvpFeature({
 
       {selectedGame && createPortal(
         <div
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/65 px-3 py-4 sm:px-5"
+          className="fixed inset-0 z-[120] flex items-start justify-center bg-black/65 px-3 pt-6 pb-4 sm:px-5 sm:pt-8"
           onClick={() => setSelectedGame(null)}
         >
           <div
