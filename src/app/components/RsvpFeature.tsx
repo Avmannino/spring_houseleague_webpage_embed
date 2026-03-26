@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { ref, onValue, set } from "firebase/database";
+import { db } from "@/lib/firebase";
 
 type AgeGroup = "Mites" | "Squirt" | "Peewee" | "Bantam" | "U16-18";
 
@@ -43,7 +45,7 @@ type RsvpFeatureProps = {
   activePlayers: RosterPlayer[];
 };
 
-const RSVP_STORAGE_KEY = "wings-inhouse-rsvp-attendance";
+const RSVP_DB_PATH = "wings-inhouse-rsvp-attendance";
 
 const RSVP_STATUS_LABELS: Record<Exclude<RSVPStatus, "no-response">, string> = {
   yes: "Yes",
@@ -152,28 +154,15 @@ export function RsvpFeature({
 }: RsvpFeatureProps) {
   const [selectedGame, setSelectedGame] = useState<GameRow | null>(null);
   const [attendance, setAttendance] = useState<AttendanceMap>({});
-  const hasLoaded = useRef(false);
 
   useEffect(() => {
-    try {
-      const storedValue = window.localStorage.getItem(RSVP_STORAGE_KEY);
-      if (storedValue) {
-        setAttendance(JSON.parse(storedValue) as AttendanceMap);
-      }
-    } catch (error) {
-      console.error("Failed to load RSVP attendance:", error);
-    }
-    hasLoaded.current = true;
+    const dbRef = ref(db, RSVP_DB_PATH);
+    const unsubscribe = onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      setAttendance(data ?? {});
+    });
+    return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    if (!hasLoaded.current) return;
-    try {
-      window.localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(attendance));
-    } catch (error) {
-      console.error("Failed to save RSVP attendance:", error);
-    }
-  }, [attendance]);
 
   useEffect(() => {
     if (!selectedGame) return;
@@ -206,31 +195,26 @@ export function RsvpFeature({
     setAttendance((prev) => {
       const currentStatus = prev[gameId]?.[playerId] ?? "no-response";
       const nextGameAttendance = { ...(prev[gameId] ?? {}) };
+      let next: AttendanceMap;
 
       if (currentStatus === status) {
         delete nextGameAttendance[playerId];
-
         const hasAnySelections = Object.keys(nextGameAttendance).length > 0;
-
         if (!hasAnySelections) {
-          const next = { ...prev };
+          next = { ...prev };
           delete next[gameId];
-          return next;
+        } else {
+          next = { ...prev, [gameId]: nextGameAttendance };
         }
-
-        return {
-          ...prev,
-          [gameId]: nextGameAttendance,
-        };
+      } else {
+        next = { ...prev, [gameId]: { ...(prev[gameId] ?? {}), [playerId]: status } };
       }
 
-      return {
-        ...prev,
-        [gameId]: {
-          ...(prev[gameId] ?? {}),
-          [playerId]: status,
-        },
-      };
+      set(ref(db, RSVP_DB_PATH), next).catch((err) =>
+        console.error("Failed to save RSVP:", err)
+      );
+
+      return next;
     });
   }
 
