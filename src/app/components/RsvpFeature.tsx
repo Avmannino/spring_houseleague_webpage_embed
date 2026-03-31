@@ -62,9 +62,7 @@ const RSVP_STATUS_STYLES: Record<Exclude<RSVPStatus, "no-response">, string> = {
 function normalizeTeamKey(team: string): string {
   const compact = team.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-  if (compact.includes("germany") && compact.includes("nrlh")) return "germany-nrlh";
-  if (compact.includes("germany") && compact.includes("nrlighting")) return "germany-nrlh";
-  if (compact.includes("germany")) return "germany-nrlh";
+  if (compact.includes("germany")) return "germany";
   if (compact === "usa") return "usa";
   if (compact === "canada") return "canada";
   if (compact === "sweden") return "sweden";
