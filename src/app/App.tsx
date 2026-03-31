@@ -61,32 +61,32 @@ const LEAGUE_YEAR = 2026;
 
 const STANDINGS_DATA: Record<AgeGroup, StandingsRow[]> = {
   Mites: [
-    { team: "USA", wins: 1, losses: 0, ties: 0 },
-    { team: "Germany-NRLH", wins: 0, losses: 1, ties: 0 },
+    { team: "USA", wins: 1, losses: 1, ties: 0 },
+    { team: "Germany-NRLH", wins: 1, losses: 1, ties: 0 },
   ],
   Squirt: [
-    { team: "Germany", wins: 0, losses: 1, ties: 0 },
-    { team: "Canada", wins: 1, losses: 0, ties: 0 },
-    { team: "Sweden", wins: 1, losses: 0, ties: 0 },
-    { team: "USA", wins: 0, losses: 1, ties: 0 },
+    { team: "Sweden", wins: 2, losses: 0, ties: 0 },
+    { team: "Germany", wins: 1, losses: 1, ties: 0 },
+    { team: "Canada", wins: 1, losses: 1, ties: 0 },
+    { team: "USA", wins: 0, losses: 2, ties: 0 },
   ],
   Peewee: [
-    { team: "Germany", wins: 0, losses: 1, ties: 0 },
-    { team: "Netherlands", wins: 1, losses: 0, ties: 0 },
-    { team: "Sweden", wins: 0, losses: 1, ties: 0 },
-    { team: "Finland", wins: 1, losses: 0, ties: 0 },
+    { team: "Netherlands", wins: 2, losses: 0, ties: 0 },
+    { team: "Finland", wins: 2, losses: 0, ties: 0 },
+    { team: "Germany", wins: 0, losses: 2, ties: 0 },
+    { team: "Sweden", wins: 0, losses: 2, ties: 0 },
   ],
   Bantam: [
-    { team: "Germany", wins: 0, losses: 1, ties: 0 },
-    { team: "Canada", wins: 0, losses: 0, ties: 1 },
-    { team: "Sweden", wins: 0, losses: 0, ties: 1 },
-    { team: "Finland", wins: 1, losses: 0, ties: 0 },
+    { team: "Finland", wins: 2, losses: 0, ties: 0 },
+    { team: "Germany", wins: 1, losses: 1, ties: 0 },
+    { team: "Canada", wins: 0, losses: 1, ties: 1 },
+    { team: "Sweden", wins: 0, losses: 1, ties: 1 },
   ],
   "U16-18": [
-    { team: "Canada", wins: 0, losses: 1, ties: 0 },
-    { team: "Netherlands", wins: 1, losses: 0, ties: 0 },
-    { team: "USA", wins: 1, losses: 0, ties: 0 },
-    { team: "Finland", wins: 0, losses: 1, ties: 0 },
+    { team: "USA", wins: 2, losses: 0, ties: 0 },
+    { team: "Canada", wins: 1, losses: 1, ties: 0 },
+    { team: "Netherlands", wins: 1, losses: 1, ties: 0 },
+    { team: "Finland", wins: 0, losses: 2, ties: 0 },
   ],
 };
 
