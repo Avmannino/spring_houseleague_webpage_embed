@@ -929,8 +929,8 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "squirt-r-22", team: "USA", firstName: "James", lastName: "McNamara" },
     { id: "squirt-r-23", team: "USA", firstName: "Brody", lastName: "Neri" },
     { id: "squirt-r-24", team: "USA", firstName: "Julian", lastName: "Serowik" },
-    { id: "squirt-r-25", team: "USA", firstName: "Wilson", lastName: "Weiner" },
-    { id: "squirt-r-26", team: "USA", firstName: "Lawson", lastName: "Weiner" },
+    { id: "squirt-r-25", team: "USA", firstName: "Wilson", lastName: "Wiener" },
+    { id: "squirt-r-26", team: "USA", firstName: "Lawson", lastName: "Wiener" },
 
     { id: "squirt-r-27", team: "Germany", firstName: "Maya", lastName: "Greenberg" },
     { id: "squirt-r-28", team: "Germany", firstName: "Julia", lastName: "Lungariello" },
@@ -1063,7 +1063,7 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "u16-r-9", team: "USA", firstName: "Charlie", lastName: "Tusa" },
     { id: "u16-r-10", team: "USA", firstName: "William", lastName: "Lewis" },
     { id: "u16-r-11", team: "USA", firstName: "Max", lastName: "Corbo" },
-    { id: "u16-r-12", team: "USA", firstName: "Anderson", lastName: "Weiner" },
+    { id: "u16-r-12", team: "USA", firstName: "Anderson", lastName: "Wiener" },
 
     { id: "u16-r-13", team: "Netherlands", firstName: "Sasha", lastName: "Miranowski" },
     { id: "u16-r-14", team: "Netherlands", firstName: "Jackson", lastName: "Kronewitter" },
