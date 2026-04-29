@@ -1041,14 +1041,15 @@ const ROSTER_DATA: Record<AgeGroup, RosterPlayer[]> = {
     { id: "bantam-r-41", team: "Germany", firstName: "Jaden", lastName: "Vazquez" },
     { id: "bantam-r-42", team: "Germany", firstName: "Luke", lastName: "Scaramella" },
     { id: "bantam-r-43", team: "Germany", firstName: "Charlotte", lastName: "Bishop" },
+    { id: "bantam-r-44", team: "Germany", firstName: "Lucien", lastName: "Yantorno" },
 
-    { id: "bantam-r-44", team: "Canada", firstName: "Grace", lastName: "Garcia", isGoalie: true },
-    { id: "bantam-r-45", team: "Sweden", firstName: "Patrick", lastName: "Melton", isGoalie: true },
-    { id: "bantam-r-46", team: "Finland", firstName: "Anèleah", lastName: "Stahl", isGoalie: true },
-    { id: "bantam-r-47", team: "Finland", firstName: "Ryan", lastName: "Feinstein", isGoalie: true },
-    { id: "bantam-r-48", team: "Germany", firstName: "Louis", lastName: "Thorne", isGoalie: true },
-    { id: "bantam-r-49", team: "Sweden", firstName: "Luke", lastName: "DeMarco", isGoalie: true },
-    { id: "bantam-r-50", team: "Germany", firstName: "Chase", lastName: "Hammock", isGoalie: true },
+    { id: "bantam-r-45", team: "Canada", firstName: "Grace", lastName: "Garcia", isGoalie: true },
+    { id: "bantam-r-46", team: "Sweden", firstName: "Patrick", lastName: "Melton", isGoalie: true },
+    { id: "bantam-r-47", team: "Finland", firstName: "Anèleah", lastName: "Stahl", isGoalie: true },
+    { id: "bantam-r-48", team: "Finland", firstName: "Ryan", lastName: "Feinstein", isGoalie: true },
+    { id: "bantam-r-49", team: "Germany", firstName: "Louis", lastName: "Thorne", isGoalie: true },
+    { id: "bantam-r-50", team: "Sweden", firstName: "Luke", lastName: "DeMarco", isGoalie: true },
+    { id: "bantam-r-51", team: "Germany", firstName: "Chase", lastName: "Hammock", isGoalie: true },
   ],
 
   "U16-18": [
