@@ -330,7 +330,7 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
     {
       id: "squirt-15",
       date: "Sunday, May 10th",
-      time: "10:30 AM",
+      time: "10:20 AM",
       matchup: "Sweden vs. Germany",
       rink: "Wings Arena",
       status: "Scheduled",
@@ -485,7 +485,7 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
     {
       id: "peewee-14",
       date: "Sunday, May 10th",
-      time: "1:30 PM",
+      time: "10:30 AM",
       matchup: "Netherlands vs. Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
@@ -493,7 +493,7 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
     {
       id: "peewee-15",
       date: "Sunday, May 10th",
-      time: "2:40 PM",
+      time: "11:30 AM",
       matchup: "Germany vs. Finland",
       rink: "Wings Arena",
       status: "Scheduled",
@@ -648,7 +648,7 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
     {
       id: "bantam-14",
       date: "Sunday, May 10th",
-      time: "3:55 PM",
+      time: "5:20 PM",
       matchup: "Canada vs Sweden",
       rink: "Wings Arena",
       status: "Scheduled",
@@ -656,7 +656,7 @@ const GAME_DATA: Record<AgeGroup, GameRow[]> = {
     {
       id: "bantam-15",
       date: "Sunday, May 10th",
-      time: "5:20 PM",
+      time: "6:35 PM",
       matchup: "Finland vs Germany",
       rink: "Wings Arena",
       status: "Scheduled",
