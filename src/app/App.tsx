@@ -1170,11 +1170,11 @@ export default function App() {
                   className="w-[100px] mt-[-40px] mb-2"
                 />
                 <h1 className="text-[2.0rem] sm:text-4xl text-white text-center">
-                  In-House Spring League
+                  In-House Summer League
                 </h1>
 
                 <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center">
-                  2026 Season
+                  2026 — Starting Sunday, June 14!
                 </p>
 
                 <div className="mt-[15px] -mb-[10px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
@@ -1182,17 +1182,16 @@ export default function App() {
 
               <div className="text-gray-200 mb-4 space-y-5 text-center text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
                 <p className="font-semibold text-gray-200">
-                  A recreational league for travel team players.
+                  An extension of the Spring League for Bantam and U16/18 players.
                 </p>
 
                 <p>
-                  In-house teams with a focus on <strong>development</strong> and{" "}
-                  <strong>game play</strong>. Non-checking league.
+                  Keep older players on the ice throughout the summer with a focus on{" "}
+                  <strong>development</strong>, <strong>game play</strong>, and fun!
                 </p>
 
                 <p className="text-gray-300 font-semibold">
-                  Practice &amp; skills development designed to provide a
-                  structured, competitive hockey experience
+                  Sunday games only — no practices. Coached by Wings Arena Professional Coaches.
                 </p>
               </div>
             </div>
@@ -1608,8 +1607,6 @@ export default function App() {
                 title="Ages (Birth Years)"
                 description={
                   <>
-                    <strong>Mites</strong> (2020–2018) • <strong>Squirt</strong>{" "}
-                    (2017–2016) • <strong>Peewee</strong> (2015–2014) •{" "}
                     <strong>Bantam</strong> (2013–2012) • <strong>U16-18</strong>{" "}
                     (2011–2008)
                   </>
@@ -1628,8 +1625,8 @@ export default function App() {
               <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={practiceIcon}
-                  title="Friday Practices"
-                  description="Practices on Fridays (limited practice spots)"
+                  title="Games Only"
+                  description="Sunday games only — no practices this summer"
                   iconSize="w-[40px] h-[40px]"
                   iconOffset="-mt-[6px]"
                   textOffset="-mt-[3.5px]"
@@ -1642,7 +1639,7 @@ export default function App() {
                 <InfoBox
                   iconImage={hockeyFieldIcon}
                   title="Sunday Games"
-                  description="Games on Sundays (weekly, by age group)"
+                  description="June 14 – August 30 (12-game schedule)"
                   iconSize="w-[39px] h-[39px]"
                   iconOffset="-mt-[6px]"
                   textOffset="-mt-[3.5px]"
@@ -1689,30 +1686,19 @@ export default function App() {
           </h2>
           <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
           <p className="text-center text-gray-200 mb-6 font-semibold">
-            Jersey included • Goalies play for FREE
+            Goalies play for FREE
           </p>
 
           <div className="flex justify-center w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 items-stretch gap-6 sm:gap-x-10 w-full max-w-5xl">
+            <div className="grid grid-cols-1 items-stretch gap-6 w-full max-w-sm">
               <div
                 className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
               >
                 <PriceCard
-                  title="Games Only"
-                  price="$550"
-                  description="Jersey included"
-                  features={["Non-checking league"]}
-                />
-              </div>
-
-              <div
-                className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
-              >
-                <PriceCard
-                  title="Games + Weekly Practice"
-                  price="$800"
-                  description="Jersey included"
-                  features={["Friday practice (limited spots)", "Sunday games"]}
+                  title="12-Game Schedule"
+                  price="$300"
+                  description="Sunday games only"
+                  features={["June 14 – August 30", "Bantam & U16/18"]}
                 />
               </div>
             </div>
@@ -1740,18 +1726,17 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
               <div>
                 <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 text-center">
-                  Friday Practice Schedule
+                  Game Dates
                 </h3>
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li>• 4:10 PM — Mites</li>
-                  <li>• 5:20 PM — Squirt</li>
-                  <li>• 6:30 PM — Peewee</li>
+                  <li className="font-semibold text-[#b2dbd7]">June</li>
+                  <li>• June 14, 21, 28</li>
+                  <li className="font-semibold text-[#b2dbd7] mt-2">July</li>
+                  <li>• July 5, 12, 19, 26</li>
+                  <li className="font-semibold text-[#b2dbd7] mt-2">August</li>
+                  <li>• August 2, 9, 16, 23, 30</li>
                 </ul>
-
-                <p className="text-white mt-4 text-[0.92rem] text-center">
-                  Limited practice spots available.
-                </p>
               </div>
 
               <div className="md:border-l md:border-white/25 md:pl-8">
@@ -1760,11 +1745,8 @@ export default function App() {
                 </h3>
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li>• 7:00 AM / 8:10 AM — Mites</li>
-                  <li>• 9:20 AM / 10:30 AM — Squirt</li>
-                  <li>• 1:30 PM / 2:40 PM — Peewee</li>
-                  <li>• 3:55 PM / 5:20 PM — Bantam</li>
-                  <li>• 6:50 PM / 8:15 PM — U16-18</li>
+                  <li>• 6:55 PM – 7:55 PM — Bantam</li>
+                  <li>• 8:05 PM – 9:05 PM — U16/18</li>
                 </ul>
               </div>
             </div>
@@ -1801,7 +1783,7 @@ export default function App() {
                 />
 
                 <a
-                  href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=3982414"
+                  href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068951#SelectRegistrationType"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 inline-block font-bold underline underline-offset-4 text-blue-600 hover:text-blue-700 transition text-lg md:text-3xl lg:text-3xl xl:text-4xl"
@@ -1856,8 +1838,7 @@ export default function App() {
                     Who is this league for?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    This is a recreational in-house spring league for travel team
-                    players, designed for Ages 7–18 (Mite/Squirt/Peewee/Bantam/U16-18).
+                    This is the 2026 In-House Summer League — an extension of the Spring League for Bantam and U16/18 players. It is designed to keep older players on the ice with a fun, competitive, development-focused experience throughout the summer.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1866,18 +1847,16 @@ export default function App() {
                     What’s included with registration?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Pricing options include Games Only ($550) or Games + 1 Weekly
-                    Practice ($800). A jersey is included with both options.
+                    Registration is $300 for a 12-game schedule (June 14 – August 30). Sunday games only — no practices this summer.
                   </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="item-3">
                   <AccordionTrigger className="text-white">
-                    When are practices and games?
+                    When are games?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Practices are Fridays (limited spots). Games are Sundays. See the
-                    schedule sections above for the full breakdown by age group.
+                    Games are every Sunday from June 14 through August 30. Bantams play 6:55–7:55 PM and U16/18 play 8:05–9:05 PM. There are no Friday practices for the summer league.
                   </AccordionContent>
                 </AccordionItem>
 
