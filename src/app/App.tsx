@@ -1214,376 +1214,373 @@ export default function App() {
         </div>
       </section>
 
-      {/* Upcoming Games / Rosters Section */}
-      <section className={`${PAGE_BG} py-8 sm:py-10`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
-          <div className="text-center mb-5">
-            <h2 className="text-[1.65rem] sm:text-[2.2rem] text-white">
-              League Schedule &amp; Rosters
-            </h2>
-            <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
-            <p className="text-gray-200 text-sm sm:text-base">
-              Select an age group, then switch between upcoming games, standings, and team rosters.
-            </p>
-          </div>
+      {false && (
+        // RSVP table/schedule section — commented out for summer league
+        <section className={`${PAGE_BG} py-8 sm:py-10`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+            <div className="text-center mb-5">
+              <h2 className="text-[1.65rem] sm:text-[2.2rem] text-white">
+                League Schedule &amp; Rosters
+              </h2>
+              <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
+              <p className="text-gray-200 text-sm sm:text-base">
+                Select an age group, then switch between upcoming games, standings, and team rosters.
+              </p>
+            </div>
 
-          <div
-            className={`relative overflow-hidden rounded-[24px] border border-[#b2dbd7]/30 ${SHADOW}`}
-          >
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(229,24,55,0.16)_0%,rgba(0,54,102,0.22)_22%,rgba(255,255,255,0.06)_100%)]" />
-            <div className="absolute inset-0 bg-[#1b3f97]/45 backdrop-blur-[3px]" />
+            <div
+              className={`relative overflow-hidden rounded-[24px] border border-[#b2dbd7]/30 ${SHADOW}`}
+            >
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(229,24,55,0.16)_0%,rgba(0,54,102,0.22)_22%,rgba(255,255,255,0.06)_100%)]" />
+              <div className="absolute inset-0 bg-[#1b3f97]/45 backdrop-blur-[3px]" />
 
-            <div className="relative z-10">
-              {/* Age tabs */}
-              <div className="border-b border-white/15 px-3 sm:px-5 pt-3 sm:pt-4">
-                <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                  {AGE_GROUPS.map((group) => {
-                    const isActive = activeGroup === group;
+              <div className="relative z-10">
+                <div className="border-b border-white/15 px-3 sm:px-5 pt-3 sm:pt-4">
+                  <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                    {AGE_GROUPS.map((group) => {
+                      const isActive = activeGroup === group;
 
-                    return (
-                      <button
-                        key={group}
-                        type="button"
-                        onClick={() => setActiveGroup(group)}
-                        className={[
-                          "shrink-0 rounded-full border px-4 py-2 text-sm sm:text-[15px] font-semibold transition whitespace-nowrap",
-                          isActive
-                            ? "bg-[#e51837] text-white border-[#ff9aad] shadow-[0_6px_18px_rgba(229,24,55,0.28)]"
-                            : "bg-white/12 text-[#eef8fa] border-white/20 hover:bg-white/18",
-                        ].join(" ")}
-                      >
-                        {group}
-                      </button>
-                    );
-                  })}
+                      return (
+                        <button
+                          key={group}
+                          type="button"
+                          onClick={() => setActiveGroup(group)}
+                          className={[
+                            "shrink-0 rounded-full border px-4 py-2 text-sm sm:text-[15px] font-semibold transition whitespace-nowrap",
+                            isActive
+                              ? "bg-[#e51837] text-white border-[#ff9aad] shadow-[0_6px_18px_rgba(229,24,55,0.28)]"
+                              : "bg-white/12 text-[#eef8fa] border-white/20 hover:bg-white/18",
+                          ].join(" ")}
+                        >
+                          {group}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              {/* View toggle */}
-              <div className="px-3 sm:px-5 py-3 border-b border-white/15">
-                <div className="flex flex-wrap items-center justify-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setDetailView("games")}
-                    className={[
-                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
-                      detailView === "games"
-                        ? "bg-white text-[#0f3c72] border-white"
-                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
-                    ].join(" ")}
-                  >
-                    View Games
-                  </button>
+                <div className="px-3 sm:px-5 py-3 border-b border-white/15">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setDetailView("games")}
+                      className={[
+                        "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                        detailView === "games"
+                          ? "bg-white text-[#0f3c72] border-white"
+                          : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                      ].join(" ")}
+                    >
+                      View Games
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setDetailView("standings")}
-                    className={[
-                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
-                      detailView === "standings"
-                        ? "bg-white text-[#0f3c72] border-white"
-                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
-                    ].join(" ")}
-                  >
-                    View Standings
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setDetailView("standings")}
+                      className={[
+                        "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                        detailView === "standings"
+                          ? "bg-white text-[#0f3c72] border-white"
+                          : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                      ].join(" ")}
+                    >
+                      View Standings
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setDetailView("rosters")}
-                    className={[
-                      "rounded-full border px-4 py-2 text-sm font-semibold transition",
-                      detailView === "rosters"
-                        ? "bg-white text-[#0f3c72] border-white"
-                        : "bg-white/10 text-white border-white/20 hover:bg-white/15",
-                    ].join(" ")}
-                  >
-                    View Rosters
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setDetailView("rosters")}
+                      className={[
+                        "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                        detailView === "rosters"
+                          ? "bg-white text-[#0f3c72] border-white"
+                          : "bg-white/10 text-white border-white/20 hover:bg-white/15",
+                      ].join(" ")}
+                    >
+                      View Rosters
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Games view */}
-              {detailView === "games" &&
-                (ENABLE_RSVP ? (
-                  <RsvpFeature
-                    activeGroup={activeGroup}
-                    activeGames={activeGames}
-                    activePlayers={ROSTER_DATA[activeGroup] ?? []}
-                  />
-                ) : (
-                  <>
-                    <div className="hidden md:block">
-                      <div className="max-h-[560px] overflow-y-auto">
-                        <table className="w-full border-collapse">
-                          <thead className="sticky top-0 z-20">
-                            <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
-                              <th className="px-5 py-4 text-left font-bold">Date</th>
-                              <th className="px-5 py-4 text-left font-bold">Time</th>
-                              <th className="px-5 py-4 text-left font-bold">Matchup</th>
-                              <th className="px-5 py-4 text-left font-bold">Rink</th>
-                              <th className="px-5 py-4 text-left font-bold">Status</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            {activeGames.length > 0 ? (
-                              activeGames.map((game, index) => (
-                                <tr
-                                  key={game.id}
-                                  className={
-                                    index % 2 === 0
-                                      ? "bg-white/10 text-white"
-                                      : "bg-[#0d2f5a]/55 text-white"
-                                  }
-                                >
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                    {game.date}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
-                                    {game.time}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
-                                    {game.matchup}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                    {game.rink}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
-                                    <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
-                                      {game.status}
-                                    </span>
-                                  </td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr className="bg-white/10 text-white">
-                                <td colSpan={5} className="px-5 py-10 text-center">
-                                  No upcoming games to display for {activeGroup}.
-                                </td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    <div className="md:hidden px-3 py-3">
-                      <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
-                        {activeGames.length > 0 ? (
-                          activeGames.map((game) => (
-                            <div
-                              key={game.id}
-                              className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
-                            >
-                              <div className="flex items-start justify-between gap-3 mb-3">
-                                <div>
-                                  <p className="text-[15px] font-semibold leading-snug">
-                                    {game.matchup}
-                                  </p>
-                                  <p className="text-[13px] text-[#d6edf1] mt-1">
-                                    {game.date}
-                                  </p>
-                                </div>
-
-                                <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
-                                  {game.status}
-                                </span>
-                              </div>
-
-                              <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
-                                <div className="rounded-xl bg-white/10 px-3 py-2">
-                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                                    Time
-                                  </p>
-                                  <p className="font-medium">{game.time}</p>
-                                </div>
-
-                                <div className="rounded-xl bg-white/10 px-3 py-2">
-                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
-                                    Rink
-                                  </p>
-                                  <p className="font-medium">{game.rink}</p>
-                                </div>
-                              </div>
-                            </div>
-                          ))
-                        ) : (
-                          <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-center text-white">
-                            No upcoming games to display for {activeGroup}.
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </>
-                ))}
-
-              {/* Standings view */}
-              {detailView === "standings" && (
-                <div className="px-3 sm:px-5 py-4 sm:py-5">
-                  {activeStandings.length > 0 ? (
+                {detailView === "games" &&
+                  (ENABLE_RSVP ? (
+                    <RsvpFeature
+                      activeGroup={activeGroup}
+                      activeGames={activeGames}
+                      activePlayers={ROSTER_DATA[activeGroup] ?? []}
+                    />
+                  ) : (
                     <>
                       <div className="hidden md:block">
-                        <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px]">
+                        <div className="max-h-[560px] overflow-y-auto">
                           <table className="w-full border-collapse">
-                            <thead>
-                              <tr className="bg-[#0f3c72]/75 text-white uppercase tracking-[0.06em] text-sm">
-                                <th className="px-5 py-4 text-left font-bold">Division-{activeGroup}-Teams</th>
-                                <th className="px-5 py-4 text-center font-bold">Wins</th>
-                                <th className="px-5 py-4 text-center font-bold">Losses</th>
-                                <th className="px-5 py-4 text-center font-bold">Ties</th>
+                            <thead className="sticky top-0 z-20">
+                              <tr className="bg-[#0f3c72]/90 backdrop-blur-sm text-white uppercase tracking-[0.06em] text-sm">
+                                <th className="px-5 py-4 text-left font-bold">Date</th>
+                                <th className="px-5 py-4 text-left font-bold">Time</th>
+                                <th className="px-5 py-4 text-left font-bold">Matchup</th>
+                                <th className="px-5 py-4 text-left font-bold">Rink</th>
+                                <th className="px-5 py-4 text-left font-bold">Status</th>
                               </tr>
                             </thead>
 
                             <tbody>
-                              {activeStandings.map((row, index) => (
-                                <tr
-                                  key={`${activeGroup}-${row.team}`}
-                                  className={
-                                    index % 2 === 0
-                                      ? "bg-white/10 text-white"
-                                      : "bg-[#0d2f5a]/55 text-white"
-                                  }
-                                >
-                                  <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
-                                    {row.team}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
-                                    {row.wins}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
-                                    {row.losses}
-                                  </td>
-                                  <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
-                                    {row.ties}
+                              {activeGames.length > 0 ? (
+                                activeGames.map((game, index) => (
+                                  <tr
+                                    key={game.id}
+                                    className={
+                                      index % 2 === 0
+                                        ? "bg-white/10 text-white"
+                                        : "bg-[#0d2f5a]/55 text-white"
+                                    }
+                                  >
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                      {game.date}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-medium whitespace-nowrap">
+                                      {game.time}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                                      {game.matchup}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                      {game.rink}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px]">
+                                      <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[14px]">
+                                        {game.status}
+                                      </span>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr className="bg-white/10 text-white">
+                                  <td colSpan={5} className="px-5 py-10 text-center">
+                                    No upcoming games to display for {activeGroup}.
                                   </td>
                                 </tr>
-                              ))}
+                              )}
                             </tbody>
                           </table>
                         </div>
                       </div>
 
-                      <div className="md:hidden">
-                        <div className="space-y-3">
-                          <div className="rounded-2xl border border-white/15 bg-[#0f3c72]/70 px-4 py-3 text-center text-white">
-                            <p className="text-[1rem] font-semibold">Division-{activeGroup}-Teams</p>
-                          </div>
+                      <div className="md:hidden px-3 py-3">
+                        <div className="max-h-[640px] overflow-y-auto space-y-3 pr-1">
+                          {activeGames.length > 0 ? (
+                            activeGames.map((game) => (
+                              <div
+                                key={game.id}
+                                className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                              >
+                                <div className="flex items-start justify-between gap-3 mb-3">
+                                  <div>
+                                    <p className="text-[15px] font-semibold leading-snug">
+                                      {game.matchup}
+                                    </p>
+                                    <p className="text-[13px] text-[#d6edf1] mt-1">
+                                      {game.date}
+                                    </p>
+                                  </div>
 
-                          {activeStandings.map((row) => (
+                                  <span className="shrink-0 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white">
+                                    {game.status}
+                                  </span>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-[12px] sm:text-[13px]">
+                                  <div className="rounded-xl bg-white/10 px-3 py-2">
+                                    <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                      Time
+                                    </p>
+                                    <p className="font-medium">{game.time}</p>
+                                  </div>
+
+                                  <div className="rounded-xl bg-white/10 px-3 py-2">
+                                    <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">
+                                      Rink
+                                    </p>
+                                    <p className="font-medium">{game.rink}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-center text-white">
+                              No upcoming games to display for {activeGroup}.
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  ))}
+
+                {detailView === "standings" && (
+                  <div className="px-3 sm:px-5 py-4 sm:py-5">
+                    {activeStandings.length > 0 ? (
+                      <>
+                        <div className="hidden md:block">
+                          <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px]">
+                            <table className="w-full border-collapse">
+                              <thead>
+                                <tr className="bg-[#0f3c72]/75 text-white uppercase tracking-[0.06em] text-sm">
+                                  <th className="px-5 py-4 text-left font-bold">Division-{activeGroup}-Teams</th>
+                                  <th className="px-5 py-4 text-center font-bold">Wins</th>
+                                  <th className="px-5 py-4 text-center font-bold">Losses</th>
+                                  <th className="px-5 py-4 text-center font-bold">Ties</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {activeStandings.map((row, index) => (
+                                  <tr
+                                    key={`${activeGroup}-${row.team}`}
+                                    className={
+                                      index % 2 === 0
+                                        ? "bg-white/10 text-white"
+                                        : "bg-[#0d2f5a]/55 text-white"
+                                    }
+                                  >
+                                    <td className="px-5 py-4 border-b border-white/10 text-[15px] lg:text-[16px] font-semibold">
+                                      {row.team}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                      {row.wins}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                      {row.losses}
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-white/10 text-center text-[15px] lg:text-[16px]">
+                                      {row.ties}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div className="md:hidden">
+                          <div className="space-y-3">
+                            <div className="rounded-2xl border border-white/15 bg-[#0f3c72]/70 px-4 py-3 text-center text-white">
+                              <p className="text-[1rem] font-semibold">Division-{activeGroup}-Teams</p>
+                            </div>
+
+                            {activeStandings.map((row) => (
+                              <div
+                                key={`${activeGroup}-${row.team}`}
+                                className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                              >
+                                <div className="flex items-center justify-between gap-3 mb-3">
+                                  <h3 className="text-[15px] font-semibold leading-snug">{row.team}</h3>
+                                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white">
+                                    {row.wins}W-{row.losses}L-{row.ties}T
+                                  </span>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-2 text-center">
+                                  <div className="rounded-xl bg-white/10 px-3 py-2">
+                                    <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Wins</p>
+                                    <p className="font-medium text-[15px]">{row.wins}</p>
+                                  </div>
+
+                                  <div className="rounded-xl bg-white/10 px-3 py-2">
+                                    <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Losses</p>
+                                    <p className="font-medium text-[15px]">{row.losses}</p>
+                                  </div>
+
+                                  <div className="rounded-xl bg-white/10 px-3 py-2">
+                                    <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Ties</p>
+                                    <p className="font-medium text-[15px]">{row.ties}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
+                        <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
+                          {activeGroup} standings will be posted soon!
+                        </h3>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {detailView === "rosters" && (
+                  <div className="px-3 sm:px-5 py-4 sm:py-5">
+                    {hasRoster ? (
+                      <div className="max-h-[640px] overflow-y-auto pr-1">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          {rosterGroups.map(([team, players]) => (
                             <div
-                              key={`${activeGroup}-${row.team}`}
-                              className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-[2px]"
+                              key={team}
+                              className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px] overflow-hidden"
                             >
-                              <div className="flex items-center justify-between gap-3 mb-3">
-                                <h3 className="text-[15px] font-semibold leading-snug">{row.team}</h3>
-                                <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white">
-                                  {row.wins}W-{row.losses}L-{row.ties}T
-                                </span>
+                              <div className="border-b border-white/15 px-4 py-3 bg-[#0f3c72]/55">
+                                <div className="flex items-center justify-between gap-3">
+                                  <h3 className="text-white text-[1rem] sm:text-[1.1rem] font-semibold">
+                                    {team}
+                                  </h3>
+                                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] sm:text-[12px] text-white">
+                                    {players.length} Player{players.length === 1 ? "" : "s"}
+                                  </span>
+                                </div>
                               </div>
 
-                              <div className="grid grid-cols-3 gap-2 text-center">
-                                <div className="rounded-xl bg-white/10 px-3 py-2">
-                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Wins</p>
-                                  <p className="font-medium text-[15px]">{row.wins}</p>
-                                </div>
+                              <div className="px-4 py-3">
+                                <div className="space-y-2">
+                                  {players.map((player, index) => (
+                                    <div
+                                      key={player.id}
+                                      className={[
+                                        "flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-white",
+                                        index % 2 === 0 ? "bg-white/8" : "bg-white/4",
+                                      ].join(" ")}
+                                    >
+                                      <div className="min-w-0">
+                                        <p className="font-medium leading-tight">
+                                          {player.firstName} {player.lastName}
+                                        </p>
+                                      </div>
 
-                                <div className="rounded-xl bg-white/10 px-3 py-2">
-                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Losses</p>
-                                  <p className="font-medium text-[15px]">{row.losses}</p>
-                                </div>
-
-                                <div className="rounded-xl bg-white/10 px-3 py-2">
-                                  <p className="text-[#c4e6ea] uppercase tracking-wide text-[10px] mb-1">Ties</p>
-                                  <p className="font-medium text-[15px]">{row.ties}</p>
+                                      {player.isGoalie && (
+                                        <span className="shrink-0 rounded-full border border-[#b2dbd7]/40 bg-[#b2dbd7]/15 px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold text-[#e7fbff]">
+                                          Goalie
+                                        </span>
+                                      )}
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
                             </div>
                           ))}
                         </div>
                       </div>
-                    </>
-                  ) : (
-                    <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
-                      <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
-                        {activeGroup} standings will be posted soon!
-                      </h3>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Rosters view */}
-              {detailView === "rosters" && (
-                <div className="px-3 sm:px-5 py-4 sm:py-5">
-                  {hasRoster ? (
-                    <div className="max-h-[640px] overflow-y-auto pr-1">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {rosterGroups.map(([team, players]) => (
-                          <div
-                            key={team}
-                            className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-[2px] overflow-hidden"
-                          >
-                            <div className="border-b border-white/15 px-4 py-3 bg-[#0f3c72]/55">
-                              <div className="flex items-center justify-between gap-3">
-                                <h3 className="text-white text-[1rem] sm:text-[1.1rem] font-semibold">
-                                  {team}
-                                </h3>
-                                <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] sm:text-[12px] text-white">
-                                  {players.length} Player{players.length === 1 ? "" : "s"}
-                                </span>
-                              </div>
-                            </div>
-
-                            <div className="px-4 py-3">
-                              <div className="space-y-2">
-                                {players.map((player, index) => (
-                                  <div
-                                    key={player.id}
-                                    className={[
-                                      "flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-white",
-                                      index % 2 === 0 ? "bg-white/8" : "bg-white/4",
-                                    ].join(" ")}
-                                  >
-                                    <div className="min-w-0">
-                                      <p className="font-medium leading-tight">
-                                        {player.firstName} {player.lastName}
-                                      </p>
-                                    </div>
-
-                                    {player.isGoalie && (
-                                      <span className="shrink-0 rounded-full border border-[#b2dbd7]/40 bg-[#b2dbd7]/15 px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold text-[#e7fbff]">
-                                        Goalie
-                                      </span>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                    ) : (
+                      <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
+                        <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
+                          {activeGroup} roster will be posted soon!
+                        </h3>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 text-center text-white">
-                      <h3 className="text-[1.1rem] sm:text-[1.25rem] font-semibold mb-2">
-                        {activeGroup} roster will be posted soon!
-                      </h3>
-                    </div>
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                )}
 
-              <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
-                Viewing:{" "}
-                <span className="font-semibold text-white">
-                  {activeGroup} {detailView === "games" ? "Games" : detailView === "standings" ? "Standings" : "Rosters"}
-                </span>
+                <div className="relative z-10 border-t border-white/15 px-4 sm:px-5 py-3 text-center text-[12px] sm:text-[13px] text-[#d7edf0]">
+                  Viewing:{" "}
+                  <span className="font-semibold text-white">
+                    {activeGroup} {detailView === "games" ? "Games" : detailView === "standings" ? "Standings" : "Rosters"}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Info Boxes */}
       <section
