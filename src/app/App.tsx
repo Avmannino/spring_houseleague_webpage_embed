@@ -1190,7 +1190,7 @@ export default function App() {
                   <strong>development</strong>, <strong>game play</strong>, and fun!
                 </p>
 
-                <p className="text-gray-300 font-semibold">
+                <p className="text-gray-300 font-semibold text-[13px] sm:text-[14px] lg:text-[15px]">
                   Sunday games only — no practices. Coached by Wings Arena Professional Coaches.
                 </p>
               </div>
@@ -1742,8 +1742,8 @@ export default function App() {
                 </h3>
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li>• 6:55 PM – 7:55 PM — Bantam</li>
-                  <li>• 8:05 PM – 9:05 PM — U16/18</li>
+                  <li>• 6:00 PM – 7:00 PM — Bantam</li>
+                  <li>• 7:10 PM – 8:15 PM — U16/18</li>
                 </ul>
               </div>
             </div>
@@ -1853,7 +1853,7 @@ export default function App() {
                     When are games?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Games are every Sunday from June 14 through August 30. Bantams play 6:55–7:55 PM and U16/18 play 8:05–9:05 PM. There are no Friday practices for the summer league.
+                    Games are every Sunday from June 14 through August 30. Bantams play 6:00–7:00 PM and U16/18 play 7:10–8:15 PM. There are no Friday practices for the summer league.
                   </AccordionContent>
                 </AccordionItem>
 
