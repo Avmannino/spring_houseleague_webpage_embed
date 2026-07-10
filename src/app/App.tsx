@@ -1182,7 +1182,7 @@ export default function App() {
 
               <div className="text-gray-200 mb-4 space-y-5 text-center text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
                 <p className="font-semibold text-gray-200">
-                  An extension of the Spring League for Bantam and U16/18 players.
+                  An extension of the Spring League for Peewee, Bantam, and U16/18 players.
                 </p>
 
                 <p>
@@ -1604,8 +1604,8 @@ export default function App() {
                 title="Ages (Birth Years)"
                 description={
                   <>
-                    <strong>Bantam</strong> (2013–2012) • <strong>U16-18</strong>{" "}
-                    (2011–2008)
+                    <strong>Peewee (12U)</strong> (2015–2014) • <strong>Bantam</strong> (2013–2012) •{" "}
+                    <strong>U16-18</strong> (2011–2008)
                   </>
                 }
                 iconSize="w-[35.35px] h-[35.35px]"
@@ -1695,7 +1695,7 @@ export default function App() {
                   title="12-Game Schedule"
                   price="$300"
                   description="Sunday games only"
-                  features={["June 14 – August 30", "Bantam & U16/18"]}
+                  features={["June 14 – August 30", "Peewee, Bantam & U16/18"]}
                 />
               </div>
             </div>
@@ -1742,6 +1742,7 @@ export default function App() {
                 </h3>
 
                 <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
+                  <li>• 4:50 PM – 5:50 PM — Peewee (12U)</li>
                   <li>• 6:00 PM – 7:00 PM — Bantam</li>
                   <li>• 7:10 PM – 8:15 PM — U16/18</li>
                 </ul>
@@ -1835,7 +1836,7 @@ export default function App() {
                     Who is this league for?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    This is the 2026 In-House Summer League — an extension of the Spring League for Bantam and U16/18 players. It is designed to keep older players on the ice with a fun, competitive, development-focused experience throughout the summer.
+                    This is the 2026 In-House Summer League — an extension of the Spring League for Peewee (12U) (ages 11–12), Bantam, and U16/18 players. It is designed to keep players on the ice with a fun, competitive, development-focused experience throughout the summer.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1844,7 +1845,7 @@ export default function App() {
                     What’s included with registration?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Registration is $300 for a 12-game schedule (June 14 – August 30). Sunday games only — no practices this summer.
+                    Registration is $300 for a 12-game schedule (June 14 – August 30). Sunday games only — no practices this summer. Open to Peewee (12U), Bantam, and U16/18 players.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1853,7 +1854,7 @@ export default function App() {
                     When are games?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Games are every Sunday from June 14 through August 30. Bantams play 6:00–7:00 PM and U16/18 play 7:10–8:15 PM. There are no Friday practices for the summer league.
+                    Games are every Sunday from June 14 through August 30. Peewee (12U) plays 4:50–5:50 PM, Bantams play 6:00–7:00 PM, and U16/18 play 7:10–8:15 PM. There are no Friday practices for the summer league.
                   </AccordionContent>
                 </AccordionItem>
 
