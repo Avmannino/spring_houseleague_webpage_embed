@@ -1170,11 +1170,11 @@ export default function App() {
                   className="w-[100px] mt-[-40px] mb-2"
                 />
                 <h1 className="text-[2.0rem] sm:text-4xl text-white text-center">
-                  In-House Summer League
+                  Wings Arena LTP League
                 </h1>
 
                 <p className="text-[#b2dbd7] font-bold tracking-wide mt-3 text-center">
-                  2026 — Starting Sunday, June 14!
+                  2026–27 Season — Starting September 13!
                 </p>
 
                 <div className="mt-[15px] -mb-[10px] h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
@@ -1182,16 +1182,17 @@ export default function App() {
 
               <div className="text-gray-200 mb-4 space-y-5 text-center text-[15px] sm:text-[16px] lg:text-[18px] leading-relaxed">
                 <p className="font-semibold text-gray-200">
-                  An extension of the Spring League for Peewee, Bantam, and U16/18 players.
+                  Wings Arena is excited to offer our Learn To Play (LTP) Hockey League for players aged 4 to 6.
                 </p>
 
                 <p>
-                  Keep older players on the ice throughout the summer with a focus on{" "}
-                  <strong>development</strong>, <strong>game play</strong>, and fun!
+                  Designed to provide a fun, <strong>competitive</strong>, and{" "}
+                  <strong>development-focused</strong> hockey experience in a familiar environment,
+                  with consistent ice times for the 2026–27 Hockey Season.
                 </p>
 
                 <p className="text-gray-300 font-semibold text-[13px] sm:text-[14px] lg:text-[15px]">
-                  Sunday games only — no practices. Coached by Wings Arena Professional Coaches.
+                  Sunday games only — no practices. Open to all Mites not on a travel team.
                 </p>
               </div>
             </div>
@@ -1604,8 +1605,7 @@ export default function App() {
                 title="Ages (Birth Years)"
                 description={
                   <>
-                    <strong>Peewee (12U)</strong> (2015–2014) • <strong>Bantam</strong> (2013–2012) •{" "}
-                    <strong>U16-18</strong> (2011–2008)
+                    <strong>Mites</strong> — Ages 4–6 (Birth Years 2022–2020)
                   </>
                 }
                 iconSize="w-[35.35px] h-[35.35px]"
@@ -1618,12 +1618,12 @@ export default function App() {
           </div>
 
           <div className="flex justify-center">
-            <div className="grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch">
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+            <div className="grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[calc(1rem*1.0356)] justify-items-stretch items-stretch">
+              <div className={`w-full h-full [&>*]:!w-full [&>*]:h-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={practiceIcon}
                   title="Games Only"
-                  description="Sunday games only — no practices this summer"
+                  description="Sunday games only — no practices"
                   iconSize="w-[40px] h-[40px]"
                   iconOffset="-mt-[6px]"
                   textOffset="-mt-[3.5px]"
@@ -1632,11 +1632,11 @@ export default function App() {
                 />
               </div>
 
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+              <div className={`w-full h-full [&>*]:!w-full [&>*]:h-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={hockeyFieldIcon}
                   title="Sunday Games"
-                  description="June 14 – August 30 (12-game schedule)"
+                  description="Sept. 13, 2026 – Mar. 7, 2027 (23-game schedule)"
                   iconSize="w-[39px] h-[39px]"
                   iconOffset="-mt-[6px]"
                   textOffset="-mt-[3.5px]"
@@ -1645,7 +1645,7 @@ export default function App() {
                 />
               </div>
 
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+              <div className={`w-full h-full [&>*]:!w-full [&>*]:h-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={coachingIcon}
                   title="Coaching"
@@ -1658,7 +1658,7 @@ export default function App() {
                 />
               </div>
 
-              <div className={`w-full [&>*]:!w-full [&>*]:${SHADOW}`}>
+              <div className={`w-full h-full [&>*]:!w-full [&>*]:h-full [&>*]:${SHADOW}`}>
                 <InfoBox
                   iconImage={coedIcon}
                   title="Co-Ed League"
@@ -1682,9 +1682,7 @@ export default function App() {
             Pricing Options
           </h2>
           <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-[#b2dbd7]/50 to-transparent" />
-          <p className="text-center text-gray-200 mb-6 font-semibold">
-            Goalies play for FREE
-          </p>
+
 
           <div className="flex justify-center w-full">
             <div className="grid grid-cols-1 items-stretch gap-6 w-full max-w-sm">
@@ -1692,10 +1690,10 @@ export default function App() {
                 className={`h-full flex [&>*]:h-full [&>*]:w-full [&>*]:mx-0 [&>*]:${SHADOW}`}
               >
                 <PriceCard
-                  title="12-Game Schedule"
-                  price="$300"
+                  title="23-Game Schedule"
+                  price="$950"
                   description="Sunday games only"
-                  features={["June 14 – August 30", "Peewee, Bantam & U16/18"]}
+                  features={["Ages 4–6", "Sept. 13, 2026 – Mar. 7, 2027"]}
                 />
               </div>
             </div>
@@ -1716,36 +1714,38 @@ export default function App() {
       {/* Weekly Schedules */}
       <div className="w-[92%] sm:w-full max-w-6xl mx-auto my-8 mt-2">
         <div
-          className={`relative overflow-hidden rounded-lg border border-white/20 p-6 sm:p-8 ${SHADOW}`}
+          className={`relative overflow-hidden rounded-lg border border-white/20 ${SHADOW}`}
         >
           <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
-          <div className="relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
-              <div>
-                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-3 text-center">
-                  Game Dates
-                </h3>
+          <div className="relative z-10 overflow-x-auto">
+            {/* Table header */}
+            <div className="grid grid-cols-[120px_170px_1fr] sm:grid-cols-[140px_200px_1fr] bg-white/10 border-b border-white/20 px-5 py-3">
+              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Day</span>
+              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Time</span>
+              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Dates</span>
+            </div>
 
-                <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li className="font-semibold text-[#b2dbd7]">June</li>
-                  <li>• June 14, 21, 28</li>
-                  <li className="font-semibold text-[#b2dbd7] mt-2">July</li>
-                  <li>• July 5, 12, 19, 26</li>
-                  <li className="font-semibold text-[#b2dbd7] mt-2">August</li>
-                  <li>• August 2, 9, 16, 23, 30</li>
-                </ul>
-              </div>
-
-              <div className="md:border-l md:border-white/25 md:pl-8">
-                <h3 className="text-white text-[1.25rem] sm:text-[1.6rem] mb-4 text-center">
-                  Sunday Game Schedule
-                </h3>
-
-                <ul className="text-white space-y-2 text-[0.98rem] sm:text-[1.05rem] text-center">
-                  <li>• 4:50 PM – 5:50 PM — Peewee (12U)</li>
-                  <li>• 6:00 PM – 7:00 PM — Bantam</li>
-                  <li>• 7:10 PM – 8:15 PM — U16/18</li>
-                </ul>
+            {/* Sundays row */}
+            <div className="grid grid-cols-[120px_170px_1fr] sm:grid-cols-[140px_200px_1fr] px-5 py-5 border-b border-white/10 items-start">
+              <span className="text-white font-bold text-[14px] sm:text-[15px] pt-1">Sundays</span>
+              <span className="text-[#b2dbd7] font-semibold text-[13px] sm:text-[14px] pt-1">7:00 AM – 8:00 AM</span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Sept. 13, 2026","Sept. 20, 2026","Sept. 27, 2026",
+                  "Oct. 4, 2026","Oct. 11, 2026","Oct. 18, 2026","Oct. 25, 2026",
+                  "Nov. 1, 2026","Nov. 8, 2026","Nov. 15, 2026","Nov. 22, 2026",
+                  "Dec. 6, 2026","Dec. 13, 2026","Dec. 20, 2026",
+                  "Jan. 3, 2027","Jan. 10, 2027","Jan. 17, 2027","Jan. 24, 2027","Jan. 31, 2027",
+                  "Feb. 7, 2027","Feb. 21, 2027","Feb. 28, 2027",
+                  "Mar. 7, 2027",
+                ].map((d) => (
+                  <span
+                    key={d}
+                    className="rounded-md bg-white/15 border border-white/20 px-2.5 py-1 text-white text-[11px] sm:text-[12px] font-medium whitespace-nowrap"
+                  >
+                    {d}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -1781,7 +1781,7 @@ export default function App() {
                 />
 
                 <a
-                  href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068951#SelectRegistrationType"
+                  href="https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4097755"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 inline-block font-bold underline underline-offset-4 text-blue-600 hover:text-blue-700 transition text-lg md:text-3xl lg:text-3xl xl:text-4xl"
@@ -1836,7 +1836,7 @@ export default function App() {
                     Who is this league for?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    This is the 2026 In-House Summer League — an extension of the Spring League for Peewee (12U) (ages 11–12), Bantam, and U16/18 players. It is designed to keep players on the ice with a fun, competitive, development-focused experience throughout the summer.
+                    This is the 2026–27 Wings Arena LTP (Learn To Play) Hockey League for players aged 4 to 6 (Birth Years 2022–2020). It is open to all Mites not on a travel team.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1845,7 +1845,7 @@ export default function App() {
                     What’s included with registration?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Registration is $300 for a 12-game schedule (June 14 – August 30). Sunday games only — no practices this summer. Open to Peewee (12U), Bantam, and U16/18 players.
+                    Registration is $950 for a 23-game schedule running September 13, 2026 through March 7, 2027. Sunday games only — no practices.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1854,18 +1854,10 @@ export default function App() {
                     When are games?
                   </AccordionTrigger>
                   <AccordionContent className="text-white">
-                    Games are every Sunday from June 14 through August 30. Peewee (12U) plays 4:50–5:50 PM, Bantams play 6:00–7:00 PM, and U16/18 play 7:10–8:15 PM. There are no Friday practices for the summer league.
+                    Games are every Sunday morning at 7:00–8:00 AM, starting September 13, 2026 and running through March 7, 2027 (23 games total). There are no practices.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-white">
-                    Do goalies have to pay?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-white">
-                    No — goalies play for FREE.
-                  </AccordionContent>
-                </AccordionItem>
               </Accordion>
             </div>
           </div>

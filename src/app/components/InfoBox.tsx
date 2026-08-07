@@ -26,7 +26,7 @@ export function InfoBox({
   descriptionClassName = "",
 }: InfoBoxProps) {
   return (
-    <div className="relative border border-white/20 rounded-lg p-4 sm:p-6 flex flex-col items-center text-center hover:scale-[1.03] transition-transform duration-150 w-[65%] sm:w-full mx-auto sm:mx-0 overflow-hidden">
+    <div className="relative border border-white/20 rounded-lg p-4 sm:p-6 flex flex-col items-center text-center hover:scale-[1.03] transition-transform duration-150 w-[65%] sm:w-full mx-auto sm:mx-0 overflow-hidden h-full">
       {/* ✅ Background only (text stays 100%) */}
       <div className="absolute inset-0 bg-[#e51837]/85 backdrop-blur-[2px]" />
 
