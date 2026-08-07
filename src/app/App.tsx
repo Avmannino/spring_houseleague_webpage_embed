@@ -1717,18 +1717,18 @@ export default function App() {
           className={`relative overflow-hidden rounded-lg border border-white/20 ${SHADOW}`}
         >
           <div className={`absolute inset-0 ${CARD_OVERLAY} backdrop-blur-[2px]`} />
-          <div className="relative z-10 overflow-x-auto">
-            {/* Table header */}
-            <div className="grid grid-cols-[120px_170px_1fr] sm:grid-cols-[140px_200px_1fr] bg-white/10 border-b border-white/20 px-5 py-3">
-              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Day</span>
-              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Time</span>
-              <span className="text-white font-bold text-[13px] sm:text-[14px] uppercase tracking-wide">Dates</span>
+          <div className="relative z-10">
+            {/* Desktop table header */}
+            <div className="hidden sm:grid sm:grid-cols-[140px_200px_1fr] bg-white/10 border-b border-white/20 px-5 py-3">
+              <span className="text-white font-bold text-[14px] uppercase tracking-wide">Day</span>
+              <span className="text-white font-bold text-[14px] uppercase tracking-wide">Time</span>
+              <span className="text-white font-bold text-[14px] uppercase tracking-wide">Dates</span>
             </div>
 
-            {/* Sundays row */}
-            <div className="grid grid-cols-[120px_170px_1fr] sm:grid-cols-[140px_200px_1fr] px-5 py-5 border-b border-white/10 items-start">
-              <span className="text-white font-bold text-[14px] sm:text-[15px] pt-1">Sundays</span>
-              <span className="text-[#b2dbd7] font-semibold text-[13px] sm:text-[14px] pt-1">7:00 AM – 8:00 AM</span>
+            {/* Desktop row */}
+            <div className="hidden sm:grid sm:grid-cols-[140px_200px_1fr] px-5 py-5 border-b border-white/10 items-start">
+              <span className="text-white font-bold text-[15px] pt-1">Sundays</span>
+              <span className="text-[#b2dbd7] font-semibold text-[14px] pt-1">7:00 AM – 8:00 AM</span>
               <div className="flex flex-wrap gap-2">
                 {[
                   "Sept. 13, 2026","Sept. 20, 2026","Sept. 27, 2026",
@@ -1739,10 +1739,29 @@ export default function App() {
                   "Feb. 7, 2027","Feb. 21, 2027","Feb. 28, 2027",
                   "Mar. 7, 2027",
                 ].map((d) => (
-                  <span
-                    key={d}
-                    className="rounded-md bg-white/15 border border-white/20 px-2.5 py-1 text-white text-[11px] sm:text-[12px] font-medium whitespace-nowrap"
-                  >
+                  <span key={d} className="rounded-md bg-white/15 border border-white/20 px-2.5 py-1 text-white text-[12px] font-medium whitespace-nowrap">
+                    {d}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile stacked layout */}
+            <div className="sm:hidden px-4 py-5">
+              <p className="text-white font-bold text-[16px] mb-1">Sundays</p>
+              <p className="text-[#b2dbd7] font-semibold text-[13px] mb-4">7:00 AM – 8:00 AM</p>
+              <p className="text-white font-semibold text-[13px] mb-2">Dates</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Sept. 13, 2026","Sept. 20, 2026","Sept. 27, 2026",
+                  "Oct. 4, 2026","Oct. 11, 2026","Oct. 18, 2026","Oct. 25, 2026",
+                  "Nov. 1, 2026","Nov. 8, 2026","Nov. 15, 2026","Nov. 22, 2026",
+                  "Dec. 6, 2026","Dec. 13, 2026","Dec. 20, 2026",
+                  "Jan. 3, 2027","Jan. 10, 2027","Jan. 17, 2027","Jan. 24, 2027","Jan. 31, 2027",
+                  "Feb. 7, 2027","Feb. 21, 2027","Feb. 28, 2027",
+                  "Mar. 7, 2027",
+                ].map((d) => (
+                  <span key={d} className="rounded-md bg-white/15 border border-white/20 px-3 py-1.5 text-white text-[12px] font-medium whitespace-nowrap">
                     {d}
                   </span>
                 ))}
